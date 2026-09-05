@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useAnimationControls } from "framer-motion";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Retreat = {
@@ -73,29 +73,33 @@ const retreats: Retreat[] = [
 function RetreatCard({ retreat }: { retreat: Retreat }) {
   return (
     <div
+      data-card
       className="
-        flex-shrink-0
-        w-[88vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]
-        flex overflow-hidden rounded-2xl border border-line
-        bg-cream shadow-sm
+        flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl
+        border border-line bg-cream shadow-sm transition-shadow
+        hover:shadow-md sm:flex-row
+        w-[82%] sm:w-[46%] lg:w-[31.5%]
       "
     >
-      <div className="relative w-[38%] shrink-0">
+      <div className="relative aspect-[4/3] w-full shrink-0 sm:aspect-auto sm:w-[42%]">
         <Image
           src={retreat.image}
           alt={retreat.title}
           fill
-          sizes="(max-width: 640px) 34vw, 220px"
+          sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 31vw"
           className="object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col justify-between p-4 sm:p-5">
         <div>
-          <h3 className="font-semibold text-[15px] sm:text-base text-ink leading-snug">
+          <h3 className="text-[15px] font-semibold leading-snug text-ink sm:text-base">
             {retreat.title}
           </h3>
-          <p className="mt-0.5 text-xs text-caption">{retreat.location}</p>
-          <p className="mt-2 text-xs sm:text-sm text-ink-soft leading-relaxed line-clamp-3">
+          <p className="mt-1 flex items-center gap-1 text-xs text-caption">
+            <MapPin className="h-3 w-3" strokeWidth={1.75} />
+            {retreat.location}
+          </p>
+          <p className="mt-2.5 text-xs leading-relaxed text-ink-soft line-clamp-2 sm:text-sm sm:line-clamp-3">
             {retreat.description}
           </p>
         </div>
@@ -103,7 +107,7 @@ function RetreatCard({ retreat }: { retreat: Retreat }) {
           size="sm"
           className="mt-4 w-fit rounded-full bg-forest text-cream hover:bg-forest-deep"
         >
-          Check Rates
+          Check rates
         </Button>
       </div>
     </div>
@@ -112,59 +116,123 @@ function RetreatCard({ retreat }: { retreat: Retreat }) {
 
 export default function CuratedRetreatsSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const controls = useAnimationControls();
-  const [loopWidth, setLoopWidth] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  useEffect(() => {
-    if (trackRef.current) {
-      setLoopWidth(trackRef.current.scrollWidth / 2);
+  const scrollToIndex = (
+    index: number,
+    behavior: ScrollBehavior = "smooth",
+  ) => {
+    const track = trackRef.current;
+    const card = track?.querySelectorAll<HTMLElement>("[data-card]")[index];
+    if (track && card) {
+      track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior });
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    if (!loopWidth) return;
-    if (isPaused) {
-      controls.stop();
-      return;
-    }
-    const duration = loopWidth / 45;
-    controls.start({
-      x: -loopWidth,
-      transition: { duration, ease: "linear", repeat: Infinity },
+  const goNext = () => {
+    setActiveIndex((i) => {
+      const next = (i + 1) % retreats.length;
+      scrollToIndex(next);
+      return next;
     });
-  }, [loopWidth, isPaused, controls]);
+  };
 
-  const items = [...retreats, ...retreats];
+  const goPrev = () => {
+    setActiveIndex((i) => {
+      const prev = (i - 1 + retreats.length) % retreats.length;
+      scrollToIndex(prev);
+      return prev;
+    });
+  };
+
+  // Autoplay — pauses on hover, touch, or keyboard focus, and is skipped
+  // entirely for people who have reduced motion turned on.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isPaused) return;
+    const id = window.setInterval(goNext, 4000);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaused, activeIndex]);
+
+  const resumeAfterTouch = () => {
+    window.setTimeout(() => setIsPaused(false), 2500);
+  };
 
   return (
-    <section className="w-full py-14 sm:py-20 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 mb-6 sm:mb-8">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-          Editor&apos;s pick
-        </p>
-        <h2 className="font-serif text-3xl text-forest">
-          Curated Retreats of the Month
-        </h2>
+    <section
+      className="w-full py-14 sm:py-20"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={() => setIsPaused(false)}
+      onTouchStart={() => setIsPaused(true)}
+      onTouchEnd={resumeAfterTouch}
+    >
+      <div className="mx-auto mb-6 flex max-w-7xl items-end justify-between gap-4 px-4 sm:mb-8 md:px-8">
+        <div>
+          <h2 className="font-serif text-2xl text-forest sm:text-3xl">
+            Retreats worth planning around
+          </h2>
+          <p className="mt-1.5 max-w-md text-sm text-ink-soft">
+            Six stays our editors keep coming back to, refreshed every month.
+          </p>
+        </div>
+        <div className="hidden shrink-0 items-center gap-2 sm:flex">
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Previous retreat"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-forest transition-colors hover:bg-forest hover:text-cream"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Next retreat"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-forest transition-colors hover:bg-forest hover:text-cream"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
 
       <div
-        className="relative overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        ref={trackRef}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Curated retreats"
+        className="
+          flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth
+          px-4 pb-2 sm:gap-5 md:px-8
+          [-ms-overflow-style:none] [scrollbar-width:none]
+          [&::-webkit-scrollbar]:hidden
+        "
       >
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-sand to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-sand to-transparent z-10" />
+        {retreats.map((retreat) => (
+          <RetreatCard key={retreat.id} retreat={retreat} />
+        ))}
+      </div>
 
-        <motion.div
-          ref={trackRef}
-          animate={controls}
-          className="flex gap-4 sm:gap-5 px-4 sm:px-8 w-max"
-        >
-          {items.map((retreat, i) => (
-            <RetreatCard key={`${retreat.id}-${i}`} retreat={retreat} />
-          ))}
-        </motion.div>
+      <div className="mt-5 flex items-center justify-center gap-1.5">
+        {retreats.map((retreat, i) => (
+          <button
+            key={retreat.id}
+            type="button"
+            aria-label={`Go to ${retreat.title}`}
+            aria-current={i === activeIndex}
+            onClick={() => {
+              setActiveIndex(i);
+              scrollToIndex(i);
+            }}
+            className={`h-1.5 rounded-full transition-all ${
+              i === activeIndex ? "w-6 bg-forest" : "w-1.5 bg-line"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );

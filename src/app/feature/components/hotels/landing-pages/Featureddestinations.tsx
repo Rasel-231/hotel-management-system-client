@@ -62,8 +62,8 @@ function CategoryPill({
     >
       <motion.div
         animate={{
-          backgroundColor: active ? "#1c1917" : "#fafaf9",
-          borderColor: active ? "#1c1917" : "#e7e5e4",
+          backgroundColor: active ? "#1c1917" : "#FBF6E9",
+          borderColor: active ? "#1c1917" : "#E7DFC6",
         }}
         transition={{ duration: 0.2 }}
         className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl border flex items-center justify-center"
@@ -167,7 +167,7 @@ export default function FeaturedDestinations() {
 
   if (loading) {
     return (
-      <div className="w-full mx-auto  p-8 rounded-3xl flex items-center justify-center min-h-[300px]">
+      <div className="w-full mx-auto bg-[#F6F0DC] p-8 rounded-3xl flex items-center justify-center min-h-[300px]">
         <p className="text-stone-500 text-sm animate-pulse">
           Loading destinations...
         </p>
@@ -176,8 +176,8 @@ export default function FeaturedDestinations() {
   }
 
   return (
-    <div className="w-full mx-auto  p-4 sm:p-5 md:p-8 rounded-3xl">
-      <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-1 -mx-1 px-1">
+    <div className="w-full mx-auto bg-[#F6F0DC] p-4 sm:p-5 md:p-8 rounded-3xl">
+      <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 -mx-1 px-1 justify-center border-b border-stone-200">
         {categories.map((cat) => (
           <CategoryPill
             key={cat.label}

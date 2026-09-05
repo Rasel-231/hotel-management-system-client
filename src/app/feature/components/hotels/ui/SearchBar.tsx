@@ -41,7 +41,7 @@ export default function SearchBar() {
       }}
       className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_auto] rounded-3xl border border-line bg-cream p-3 shadow-[0_24px_50px_-28px_rgba(13,43,36,0.45)]"
     >
-      <label className="flex flex-col justify-center gap-1 rounded-2xl bg-sand/60 px-4 py-3">
+      <label className="flex flex-col justify-center gap-1.5 rounded-2xl border border-line bg-cream px-4 py-3 hover:border-gold/50 focus-within:border-gold/50">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Destination
         </span>
@@ -52,20 +52,20 @@ export default function SearchBar() {
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
             placeholder="City, resort or landmark"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-caption"
+            className="w-full bg-transparent text-sm font-medium outline-none placeholder:font-normal placeholder:text-caption"
           />
         </span>
       </label>
 
-      <div className="flex flex-col justify-center gap-1 rounded-2xl bg-sand/60 px-3 py-1.5">
-        <span className="px-1 text-[11px] font-semibold uppercase tracking-wide text-caption">
+      <div className="flex flex-col justify-center gap-1.5">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Check-in – Check-out
         </span>
         <DateRangePicker value={range} onChange={updateDates} />
       </div>
 
-      <div className="flex flex-col justify-center gap-1 rounded-2xl bg-sand/60 px-3 py-1.5">
-        <span className="px-1 text-[11px] font-semibold uppercase tracking-wide text-caption">
+      <div className="flex flex-col justify-center gap-1.5">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Guests & rooms
         </span>
         <GuestsSelector
