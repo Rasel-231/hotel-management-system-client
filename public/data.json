@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "label": "Resorts",
+      "icon": "Landmark"
+    },
+    {
+      "label": "Villas",
+      "icon": "Home"
+    },
+    {
+      "label": "Cities",
+      "icon": "Building2"
+    },
+    {
+      "label": "Boutique",
+      "icon": "Shirt"
+    },
+    {
+      "label": "Islands",
+      "icon": "Palmtree"
+    },
+    {
+      "label": "More",
+      "icon": "Grid3x3"
+    }
+  ],
+  "destinations": [
+    {
+      "name": "Paris",
+      "tag": "Landmarks and river cafés",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbSg2E0fJV1lcQcNRWEBgF_cEHcBTADXKr24APTLreCPtH6Zom7ouRpkEs&s=10",
+      "mobileClassName": "col-start-1 row-start-1 row-span-2",
+      "desktopClassName": "md:col-start-1 md:row-start-1 md:row-span-2"
+    },
+    {
+      "name": "Kyoto",
+      "tag": "Temples and mountain views",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9iXChGsYOAj_yjVWn9zS-CUqxyADk9iM-xgkKotmdBme0j0NIi_lqb4og&s=10",
+      "mobileClassName": "col-start-2 col-span-2 row-start-1",
+      "desktopClassName": "md:col-start-2 md:col-span-2 md:row-start-1"
+    },
+    {
+      "name": "Kyoto",
+      "tag": "Bamboo groves and hot springs",
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnSoxUxCRJ_h9mJpZMBJyTuFbEX_iEJSjGx94POna3g9foSghZmvUD6aQ&s=10",
+      "mobileClassName": "col-start-2 row-start-2",
+      "desktopClassName": "md:col-start-2 md:row-start-2"
+    },
+    {
+      "name": "Maui",
+      "tag": "Volcanic coastline retreats",
+      "src": "https://static.vecteezy.com/system/resources/thumbnails/002/707/273/small/umbrella-and-pool-bed-around-outdoor-swimming-pool-in-hotel-resort-for-travel-holiday-vacation-photo.jpg",
+      "mobileClassName": "col-start-3 row-start-2",
+      "desktopClassName": "md:col-start-3 md:row-start-2"
+    }
+  ]
+}

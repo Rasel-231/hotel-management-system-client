@@ -1,0 +1,294 @@
+export interface Property {
+  id: string;
+  name: string;
+  location: string;
+  country: string;
+  badge?: string;
+  rating: number;
+  reviewCount: number;
+  price: number;
+  currency: string;
+  images: string[];
+  description: string;
+  highlights: string[];
+  amenities: string[];
+  type: "resort" | "villa" | "boutique" | "hotel" | "lodge";
+  stars: number;
+}
+
+export const PROPERTY_TYPES = [
+  { value: "resort", label: "Resorts" },
+  { value: "villa", label: "Villas" },
+  { value: "boutique", label: "Boutique hotels" },
+  { value: "hotel", label: "City hotels" },
+  { value: "lodge", label: "Mountain lodges" },
+] as const;
+
+export const properties: Property[] = [
+  {
+    id: "ember-oak-istanbul",
+    name: "Ember & Oak Boutique Hotel",
+    location: "Sultanahmet",
+    country: "Istanbul, Türkiye",
+    badge: "Guest favourite",
+    rating: 4.93,
+    reviewCount: 1248,
+    price: 189,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A restored Ottoman mansion wrapped in warm timber and burnt-orange stone, steps from the Hagia Sophia. Rooftop terrace, Turkish bath, and a private courtyard lined with pomegranate trees.",
+    highlights: ["Rooftop Bosphorus views", "Traditional hammam", "Free airport shuttle"],
+    amenities: ["Free breakfast", "Spa", "Airport shuttle", "Rooftop terrace", "Hot tub", "Room service"],
+    type: "boutique",
+    stars: 5,
+  },
+  {
+    id: "ivory-villa-bali",
+    name: "The Ivory Villa",
+    location: "Canggu",
+    country: "Bali, Indonesia",
+    badge: "New listing",
+    rating: 4.87,
+    reviewCount: 342,
+    price: 265,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A private plunge pool villa surrounded by tropical gardens and rice paddies. Fully staffed, with an open-air living pavilion designed for slow Indonesian mornings.",
+    highlights: ["Private pool", "Daily housekeeping", "Rice paddy views"],
+    amenities: ["Private pool", "Free breakfast", "Spa", "Garden", "Outdoor dining", "Air conditioning"],
+    type: "villa",
+    stars: 5,
+  },
+  {
+    id: "solstice-resort-maldives",
+    name: "Solstice Resort & Spa",
+    location: "Baa Atoll",
+    country: "Maldives",
+    badge: "10% off member",
+    rating: 4.96,
+    reviewCount: 2089,
+    price: 620,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "Overwater villas and beachside bungalows on a UNESCO-protected reef. House reef snorkelling, a world-class spa over the lagoon, and sunset dolphin cruises.",
+    highlights: ["Overwater villas", "UNESCO reef snorkelling", "Spa over the lagoon"],
+    amenities: ["Overwater villa", "Snorkelling", "Spa", "PADI dive centre", "Free breakfast", "Yoga deck"],
+    type: "resort",
+    stars: 5,
+  },
+  {
+    id: "cedarline-lodge-switzerland",
+    name: "Cedarline Alpine Lodge",
+    location: "Lauterbrunnen Valley",
+    country: "Bernese Alps, Switzerland",
+    rating: 4.84,
+    reviewCount: 756,
+    price: 340,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1595521624992-48a59aef95e3?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A timber-and-glass alpine lodge facing the Staubbach falls. Heated stone floors, a wood-fired sauna, and mountain bikes at the ready when the trails call.",
+    highlights: ["Falls views", "Wood-fired sauna", "Guided hiking"],
+    amenities: ["Free breakfast", "Sauna", "Mountain bikes", "Ski storage", "Restaurant", "Fireplace"],
+    type: "lodge",
+    stars: 4,
+  },
+  {
+    id: "riad-turquoise-marrakesh",
+    name: "Riad Turquoise",
+    location: "Medina",
+    country: "Marrakesh, Morocco",
+    badge: "Guest favourite",
+    rating: 4.89,
+    reviewCount: 913,
+    price: 155,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1519449556851-5720b33024e7?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A candle-lit riad hidden behind an unmarked door in the medina. Zellige tiles, a sky-lit courtyard, and rooftop suppers served under the Atlas Mountains' glow.",
+    highlights: ["Rooftop dinners", "Traditional zellige", "In-medina location"],
+    amenities: ["Rooftop terrace", "Free breakfast", "Air conditioning", "Airport pickup", "Tours & transfers", "Room service"],
+    type: "boutique",
+    stars: 4,
+  },
+  {
+    id: "aquamarine-santorini",
+    name: "Aquamarine Cliff House",
+    location: "Oia",
+    country: "Santorini, Greece",
+    rating: 4.91,
+    reviewCount: 521,
+    price: 480,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "Cave-style suites carved into the cliffs of Oia, each with a private hot tub suspended over the caldera. Whitewashed walls, driftwood accents, and burnt-orange sunsets.",
+    highlights: ["Caldera hot tub", "Sunset views", "Cave architecture"],
+    amenities: ["Private hot tub", "Free breakfast", "Housekeeping", "Sea views", "Wine tasting", "Air conditioning"],
+    type: "villa",
+    stars: 5,
+  },
+  {
+    id: "gilded-palm-dubai",
+    name: "The Gilded Palm",
+    location: "Downtown",
+    country: "Dubai, UAE",
+    badge: "Luxe pick",
+    rating: 4.85,
+    reviewCount: 1674,
+    price: 410,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "An ultra-slim tower with 40 floors of sky rooms above the opera district. Infinity pool at 120 metres, a gold-tile lobby, and butler service on call around the clock.",
+    highlights: ["Infinity pool", "Skyline views", "Butler service"],
+    amenities: ["Infinity pool", "Spa", "Gym", "Restaurant", "Valet parking", "Butler service"],
+    type: "hotel",
+    stars: 5,
+  },
+  {
+    id: "harborlight-nyc",
+    name: "Harborlight Suites",
+    location: "SoHo",
+    country: "New York, United States",
+    rating: 4.76,
+    reviewCount: 2215,
+    price: 295,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "Sunlit loft-style suites with original cast-iron details in the heart of SoHo. Walk to the High Line, bodegas, and Chelsea galleries — with a wine bar hidden in the basement.",
+    highlights: ["Cast-iron lofts", "Gallery district", "Hidden wine bar"],
+    amenities: ["Free wifi", "Wine bar", "Gym", "Concierge", "Pet friendly", "Air conditioning"],
+    type: "hotel",
+    stars: 4,
+  },
+  {
+    id: "terra-garden-ubud",
+    name: "Terra Garden Retreat",
+    location: "Ubud",
+    country: "Bali, Indonesia",
+    badge: "Loved by families",
+    rating: 4.88,
+    reviewCount: 689,
+    price: 210,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1519449556851-5720b33024e7?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A tree-canopy retreat amid the Ubud jungle with a tiered saltwater pool and a wellness pavilion. Cookery classes, sound baths, and rice-cycling tours on the doorstep.",
+    highlights: ["Jungle pool", "Wellness pavilion", "Cookery classes"],
+    amenities: ["Pool", "Spa", "Yoga classes", "Restaurant", "Free breakfast", "Family rooms"],
+    type: "resort",
+    stars: 4,
+  },
+  {
+    id: "alpine-peaks-whistler",
+    name: "Alpine Peaks Chalet",
+    location: "Whistler Blackcomb",
+    country: "British Columbia, Canada",
+    rating: 4.82,
+    reviewCount: 441,
+    price: 380,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A ski-in, ski-out timber chalet with a heated boot room and an outdoor cedar hot tub. Nights by the stone fireplace, mornings on the peak-to-peak gondola.",
+    highlights: ["Ski-in ski-out", "Cedar hot tub", "Stone fireplace"],
+    amenities: ["Ski storage", "Hot tub", "Fireplace", "Free parking", "Game room", "Free wifi"],
+    type: "lodge",
+    stars: 4,
+  },
+  {
+    id: "costa-serena-amalfi",
+    name: "Costa Serena Resort",
+    location: "Ravello",
+    country: "Amalfi Coast, Italy",
+    badge: "Guest favourite",
+    rating: 4.92,
+    reviewCount: 1582,
+    price: 520,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "A cliff garden resort with lemon terraces, a seawater lido, and honeymooner-worthy views over Ravello. Private boat transfers to Capri and a Michelin-starred kitchen.",
+    highlights: ["Lemon terraces", "Private boat transfers", "Michelin restaurant"],
+    amenities: ["Pool", "Seawater lido", "Spa", "Restaurant", "Free breakfast", "Boat transfers"],
+    type: "resort",
+    stars: 5,
+  },
+  {
+    id: "acacia-treehouse-costa-rica",
+    name: "Acacia Treehouse Lodge",
+    location: "Osa Peninsula",
+    country: "Costa Rica",
+    badge: "Eco choice",
+    rating: 4.79,
+    reviewCount: 367,
+    price: 230,
+    currency: "USD",
+    images: [
+      "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop",
+    ],
+    description:
+      "Cantilevered treehouses woven into the rainforest canopy, powered by solar and cooled by the breeze. Canopy ziplines, sloth-spotting walks, and farm-to-table cuisine.",
+    highlights: ["Rainforest canopy", "Solar powered", "Zipline access"],
+    amenities: ["Free breakfast", "Restaurant", "Yoga deck", "Guided tours", "Zipline", "Wifi in common areas"],
+    type: "lodge",
+    stars: 4,
+  },
+];
+
+export function getPropertyById(id: string): Property | undefined {
+  return properties.find((p) => p.id === id);
+}
+
+export const priceBounds: [number, number] = [0, 700];
