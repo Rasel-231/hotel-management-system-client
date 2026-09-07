@@ -75,7 +75,7 @@ export default function PropertyCard({
             <Heart
               className={cn(
                 "h-[18px] w-[18px] transition-colors",
-                liked ? "fill-danger text-danger" : "text-forest"
+                liked ? "fill-danger text-danger" : "text-forest",
               )}
             />
           </button>
@@ -123,7 +123,7 @@ export default function PropertyCard({
 function ButtonCta() {
   return (
     <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-full bg-forest px-4 py-2 text-xs font-semibold text-cream transition-all duration-300 group-hover:opacity-100 group-hover:shadow-[0_10px_20px_-10px_rgba(31,77,77,0.8)]">
-      View details
+      Book Now
       <ArrowRight className="h-3.5 w-3.5" />
     </span>
   );

@@ -8,6 +8,7 @@ import WhyChooseStayEase from "../feature/components/hotels/landing-pages/Whycho
 import Testimonials from "../feature/components/hotels/landing-pages/Testimonials";
 import DiscoverVideoBanner from "../feature/components/hotels/landing-pages/Discovervideobanner";
 import ResortHero from "../feature/components/hotels/landing-pages/ResortHero";
+import HotelServiceWeb from "../feature/components/hotels/ui/HotelService";
 
 const userPage = () => {
   return (
@@ -15,10 +16,11 @@ const userPage = () => {
       <ResortHero />
       <FeaturedDestinations />
       <CuratedRetreatsSlider />
-      <WhyChooseStayEase />
       <PropertyCardsGrid />
       <SpecialOffersSlider />
+      <WhyChooseStayEase />
       <OurCommitments />
+      <HotelServiceWeb />
       <Testimonials />
       <DiscoverVideoBanner />
     </div>

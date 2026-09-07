@@ -58,7 +58,7 @@ function CategoryPill({
       type="button"
       onClick={onClick}
       whileTap={{ scale: 0.94 }}
-      className="flex flex-col items-center gap-2 shrink-0 focus:outline-none"
+      className="flex flex-col  items-center gap-2 shrink-0 focus:outline-none"
     >
       <motion.div
         animate={{
@@ -176,8 +176,8 @@ export default function FeaturedDestinations() {
   }
 
   return (
-    <div className="w-full mx-auto bg-[#F6F0DC] p-4 sm:p-5 md:p-8 rounded-3xl">
-      <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-4 -mx-1 px-1 justify-center border-b border-stone-200">
+    <div className="w-full mx-auto bg-[#F6F0DC] p-4  sm:p-5 md:p-8 ">
+      <div className="flex gap-3 sm:gap-4  overflow-x-auto pb-4 -mx-1 px-1 justify-around border border-b-stone-950 ">
         {categories.map((cat) => (
           <CategoryPill
             key={cat.label}
