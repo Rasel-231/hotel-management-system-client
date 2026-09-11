@@ -1,11 +1,6 @@
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="min-h-screen bg-sand">
-      <main>{children}</main>
-    </div>
-  );
+import type { ReactNode } from "react";
+import AdminShell from "@/app/feature/components/management/AdminShell";
+
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  return <AdminShell>{children}</AdminShell>;
 }

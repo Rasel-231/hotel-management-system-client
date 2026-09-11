@@ -1,5 +1,6 @@
 export enum tagtypes {
     user = "user",
+    room = "room",
 }
 
 export interface IMeta {
@@ -9,4 +10,4 @@ export interface IMeta {
 }
 
 
-export const tagtypeList = [tagtypes.user];
+export const tagtypeList = [tagtypes.user, tagtypes.room];

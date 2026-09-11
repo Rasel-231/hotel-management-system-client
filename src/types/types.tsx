@@ -193,3 +193,181 @@ export type Commitment = {
   title: string;
   subtitle: string;
 };
+
+// ---------------------------------------------------------------------------
+// Admin dashboard types.
+// Replace the mock data in mock-data.ts with data from your RTK Query hooks —
+// every section component takes typed props, so wiring is a drop-in swap.
+// ---------------------------------------------------------------------------
+
+export type BookingStatus =
+  | "confirmed"
+  | "checked-in"
+  | "checked-out"
+  | "pending"
+  | "cancelled";
+
+export interface Booking {
+  id: string;
+  guest: string;
+  room: string;
+  checkIn: string;
+  checkOut: string;
+  status: BookingStatus;
+  amount: string;
+}
+
+export interface RoomType {
+  name: string;
+  total: number;
+  occupied: number;
+  price: string;
+  activeRequests: number;
+}
+
+export interface ServiceRequest {
+  room: string;
+  guest: string;
+  request: string;
+  time: string;
+  urgent: boolean;
+}
+
+export interface KpiItem {
+  label: string;
+  value: string;
+  delta?: string;
+  up?: boolean;
+}
+
+export interface RevenuePoint {
+  label: string;
+  value: number;
+}
+
+export interface ChatThread {
+  id: number;
+  name: string;
+  lastMessage: string;
+  time: string;
+  unread: number;
+  online: boolean;
+}
+
+export interface ChatMessage {
+  from: "me" | "them";
+  text: string;
+}
+
+export interface GuestMessage {
+  id: number;
+  name: string;
+  room: string;
+  phone: string;
+  message: string;
+  time: string;
+  replied: boolean;
+  reply?: string;
+}
+
+export interface WebsiteSection {
+  label: string;
+  live: boolean;
+}
+
+export type RoomAvailabilityStatus =
+  | "available"
+  | "occupied"
+  | "maintenance"
+  | "reserved";
+
+export interface RoomAvailabilityItem {
+  number: string;
+  type: string;
+  floor: string;
+  status: RoomAvailabilityStatus;
+  price: string;
+}
+
+export interface HotelProfile {
+  name: string;
+  brand: string;
+  manager: string;
+  role: string;
+  dateLabel: string;
+  greetingName: string;
+  address: string;
+  phone: string;
+  email: string;
+  timezone: string;
+  currency: string;
+  taxRate: string;
+  checkInTime: string;
+  checkOutTime: string;
+}
+
+export interface HotelStats {
+  occupancyRate: string;
+  totalRevenue: string;
+  activeBookings: number;
+  availableRooms: number;
+  totalRooms: number;
+  checkInsToday: number;
+  checkOutsToday: number;
+}
+
+export interface RecentGuest {
+  id: string;
+  name: string;
+  room: string;
+  nights: number;
+  status: BookingStatus;
+  email: string;
+  arrived: string;
+}
+
+export type StaffDutyStatus = "on-duty" | "off-duty" | "on-break";
+
+export interface StaffMember {
+  id: string;
+  name: string;
+  role: string;
+  shift: string;
+  status: StaffDutyStatus;
+  department: string;
+}
+
+export type TaskPriority = "high" | "medium" | "low";
+
+export interface StaffTask {
+  id: string;
+  title: string;
+  assignee: string;
+  priority: TaskPriority;
+  due: string;
+  done: boolean;
+}
+
+export interface ChannelShare {
+  label: string;
+  value: number;
+}
+
+export interface HotelMockPayload {
+  hotel: HotelProfile;
+  stats: HotelStats;
+  kpis: KpiItem[];
+  revenue: RevenuePoint[];
+  channelBreakdown: ChannelShare[];
+  recentGuests: RecentGuest[];
+  bookings: Booking[];
+  rooms: RoomType[];
+  serviceRequests: ServiceRequest[];
+  roomAvailability: RoomAvailabilityItem[];
+  staff: StaffMember[];
+  staffTasks: StaffTask[];
+  chatThreads: ChatThread[];
+  chatMessages: Record<string, ChatMessage[]>;
+  guestMessages: GuestMessage[];
+  websiteSections: WebsiteSection[];
+}
