@@ -1,0 +1,182 @@
+import {
+    Booking,
+    ChannelShare,
+    ChatMessage,
+    ChatThread,
+    GuestMessage,
+    HotelMockPayload,
+    HotelProfile,
+    HotelStats,
+    KpiItem,
+    RecentGuest,
+    RevenuePoint,
+    RoomAvailabilityItem,
+    RoomType,
+    ServiceRequest,
+    StaffMember,
+    StaffTask,
+    WebsiteSection,
+} from "@/types/types";
+
+
+export const mockBookings: Booking[] = [
+    { id: "PB-2291", guest: "Farhan Ahmed", room: "Deluxe Twin · 402", checkIn: "12 Sep", checkOut: "15 Sep", status: "confirmed", amount: "৳ 18,600" },
+    { id: "PB-2290", guest: "Nusrat Jahan", room: "Executive Suite · 701", checkIn: "11 Sep", checkOut: "13 Sep", status: "checked-in", amount: "৳ 26,400" },
+    { id: "PB-2289", guest: "Rezaul Karim", room: "Garden View · 118", checkIn: "10 Sep", checkOut: "11 Sep", status: "checked-out", amount: "৳ 9,200" },
+    { id: "PB-2288", guest: "Ayesha Siddiqua", room: "Deluxe King · 305", checkIn: "13 Sep", checkOut: "16 Sep", status: "pending", amount: "৳ 21,000" },
+    { id: "PB-2287", guest: "Tanvir Hasan", room: "Standard · 210", checkIn: "9 Sep", checkOut: "10 Sep", status: "cancelled", amount: "৳ 6,800" },
+];
+
+export const mockRooms: RoomType[] = [
+    { name: "Standard", total: 24, occupied: 18, price: "৳ 4,500", activeRequests: 1 },
+    { name: "Deluxe Twin", total: 16, occupied: 13, price: "৳ 7,200", activeRequests: 3 },
+    { name: "Deluxe King", total: 12, occupied: 10, price: "৳ 8,400", activeRequests: 0 },
+    { name: "Garden View", total: 10, occupied: 6, price: "৳ 9,600", activeRequests: 2 },
+    { name: "Executive Suite", total: 8, occupied: 7, price: "৳ 15,800", activeRequests: 1 },
+];
+
+export const mockServiceRequests: ServiceRequest[] = [
+    { room: "402", guest: "Farhan Ahmed", request: "Extra towels", time: "10 min ago", urgent: false },
+    { room: "701", guest: "Nusrat Jahan", request: "Room service — breakfast at 8am", time: "22 min ago", urgent: false },
+    { room: "118", guest: "Rezaul Karim", request: "AC not cooling properly", time: "1 hr ago", urgent: true },
+    { room: "305", guest: "Ayesha Siddiqua", request: "Late checkout request", time: "2 hr ago", urgent: false },
+];
+
+export const mockKpis: KpiItem[] = [
+    { label: "Occupancy today", value: "82%", delta: "4.2%", up: true },
+    { label: "Revenue (MTD)", value: "৳ 14.6L", delta: "11%", up: true },
+    { label: "Check-ins today", value: "9" },
+    { label: "Open service requests", value: "4", delta: "1 urgent", up: false },
+];
+
+export const mockRevenue: RevenuePoint[] = [
+    { label: "Mon", value: 42 }, { label: "Tue", value: 51 }, { label: "Wed", value: 38 },
+    { label: "Thu", value: 61 }, { label: "Fri", value: 74 }, { label: "Sat", value: 88 }, { label: "Sun", value: 69 },
+];
+
+export const mockChatThreads: ChatThread[] = [
+    { id: 1, name: "Front Desk — Rifat", lastMessage: "Room 305 er key card ready", time: "2m", unread: 2, online: true },
+    { id: 2, name: "Housekeeping — Team", lastMessage: "4th floor cleaning done", time: "18m", unread: 0, online: true },
+    { id: 3, name: "Maintenance — Jasim", lastMessage: "AC repair er part lagbe 118 e", time: "1h", unread: 1, online: false },
+    { id: 4, name: "Manager — Salma", lastMessage: "Weekend occupancy report pathaisi", time: "3h", unread: 0, online: false },
+];
+
+export const mockChatMessages: Record<number, ChatMessage[]> = {
+    1: [
+        { from: "them", text: "Room 305 er key card ready, guest asche 3 tay" },
+        { from: "me", text: "Thanks, front desk e রেখে দিয়েছি" },
+    ],
+    3: [{ from: "them", text: "118 e AC compressor issue, part order dite hobe" }],
+};
+
+export const mockGuestMessages: GuestMessage[] = [
+    { id: 1, name: "Rezaul Karim", room: "118", phone: "+880 17•• ••2210", message: "AC theke thanda batas ashse na, kew ki ektu dekhbe?", time: "18m ago", replied: false },
+    { id: 2, name: "Ayesha Siddiqua", room: "305", phone: "+880 19•• ••8841", message: "Ami ki 2pm porjonto late checkout pete pari?", time: "1h ago", replied: false },
+    { id: 3, name: "Tanvir Hasan", room: "—", phone: "+880 16•• ••0093", message: "Booking confirm hoyeche kina confirm korte parben?", time: "3h ago", replied: true, reply: "Ji, apnar booking PB-2287 confirmed. Dhonnobad!" },
+];
+
+export const mockWebsiteSections: WebsiteSection[] = [
+    { label: "Homepage hero", live: true },
+    { label: "Room gallery", live: true },
+    { label: "Online booking widget", live: true },
+    { label: "Restaurant menu", live: true },
+    { label: "Offers & promotions", live: false },
+    { label: "Guest reviews", live: true },
+];
+
+export const mockRoomAvailability: RoomAvailabilityItem[] = [
+    { number: "101", type: "Standard", floor: "1st floor", status: "available", price: "৳ 4,500" },
+    { number: "102", type: "Standard", floor: "1st floor", status: "occupied", price: "৳ 4,500" },
+    { number: "103", type: "Standard", floor: "1st floor", status: "available", price: "৳ 4,500" },
+    { number: "118", type: "Garden View", floor: "1st floor", status: "maintenance", price: "৳ 9,600" },
+    { number: "210", type: "Standard", floor: "2nd floor", status: "occupied", price: "৳ 4,500" },
+    { number: "211", type: "Deluxe Twin", floor: "2nd floor", status: "available", price: "৳ 7,200" },
+    { number: "212", type: "Deluxe Twin", floor: "2nd floor", status: "reserved", price: "৳ 7,200" },
+    { number: "305", type: "Deluxe King", floor: "3rd floor", status: "occupied", price: "৳ 8,400" },
+    { number: "306", type: "Deluxe King", floor: "3rd floor", status: "available", price: "৳ 8,400" },
+    { number: "402", type: "Deluxe Twin", floor: "4th floor", status: "occupied", price: "৳ 7,200" },
+    { number: "403", type: "Deluxe Twin", floor: "4th floor", status: "available", price: "৳ 7,200" },
+    { number: "701", type: "Executive Suite", floor: "7th floor", status: "occupied", price: "৳ 15,800" },
+    { number: "702", type: "Executive Suite", floor: "7th floor", status: "available", price: "৳ 15,800" },
+    { number: "703", type: "Executive Suite", floor: "7th floor", status: "reserved", price: "৳ 15,800" },
+];
+
+export const mockHotelProfile: HotelProfile = {
+    name: "NextStay Hotel",
+    brand: "Provah Grand",
+    manager: "Salma Akter",
+    role: "General Manager",
+    dateLabel: "Wednesday, 11 September",
+    greetingName: "Salma",
+    address: "Gulshan 2, Dhaka 1212",
+    phone: "+880 2-9881100",
+    email: "gm@nextstay.hotel",
+    timezone: "Asia/Dhaka",
+    currency: "BDT",
+    taxRate: "15%",
+    checkInTime: "14:00",
+    checkOutTime: "12:00",
+};
+
+export const mockHotelStats: HotelStats = {
+    occupancyRate: "82%",
+    totalRevenue: "৳ 14.6L",
+    activeBookings: 42,
+    availableRooms: 18,
+    totalRooms: 70,
+    checkInsToday: 9,
+    checkOutsToday: 6,
+};
+
+export const mockRecentGuests: RecentGuest[] = [
+    { id: "G-1042", name: "Farhan Ahmed", room: "402", nights: 3, status: "confirmed", email: "farhan.ahmed@email.com", arrived: "12 Sep" },
+    { id: "G-1041", name: "Nusrat Jahan", room: "701", nights: 2, status: "checked-in", email: "nusrat.j@email.com", arrived: "11 Sep" },
+    { id: "G-1040", name: "Rezaul Karim", room: "118", nights: 1, status: "checked-out", email: "rezaul.k@email.com", arrived: "10 Sep" },
+    { id: "G-1039", name: "Ayesha Siddiqua", room: "305", nights: 3, status: "pending", email: "ayesha.s@email.com", arrived: "13 Sep" },
+    { id: "G-1038", name: "Tanvir Hasan", room: "210", nights: 1, status: "cancelled", email: "tanvir.h@email.com", arrived: "9 Sep" },
+];
+
+export const mockChannelBreakdown: ChannelShare[] = [
+    { label: "Direct", value: 38 },
+    { label: "OTA", value: 31 },
+    { label: "Corporate", value: 18 },
+    { label: "Walk-in", value: 13 },
+];
+
+export const mockStaff: StaffMember[] = [
+    { id: "S-01", name: "Salma Akter", role: "General Manager", shift: "Day", status: "on-duty", department: "Management" },
+    { id: "S-02", name: "Rifat Hasan", role: "Front Desk Lead", shift: "Day", status: "on-duty", department: "Front Office" },
+    { id: "S-03", name: "Jasim Uddin", role: "Maintenance", shift: "Day", status: "on-duty", department: "Engineering" },
+    { id: "S-04", name: "Nabila Rahman", role: "Housekeeping Supervisor", shift: "Morning", status: "on-duty", department: "Housekeeping" },
+    { id: "S-05", name: "Karim Mia", role: "Night Auditor", shift: "Night", status: "off-duty", department: "Front Office" },
+    { id: "S-06", name: "Lamia Noor", role: "Guest Relations", shift: "Evening", status: "on-break", department: "Front Office" },
+];
+
+export const mockStaffTasks: StaffTask[] = [
+    { id: "T-11", title: "Replace AC compressor part — Room 118", assignee: "Jasim Uddin", priority: "high", due: "Today 4:00 PM", done: false },
+    { id: "T-12", title: "Turn-down service — 7th floor suites", assignee: "Nabila Rahman", priority: "medium", due: "Today 6:30 PM", done: false },
+    { id: "T-13", title: "Prepare welcome amenity for PB-2285", assignee: "Lamia Noor", priority: "medium", due: "14 Sep 12:00", done: false },
+    { id: "T-14", title: "Night audit report", assignee: "Karim Mia", priority: "low", due: "Tonight 11:00 PM", done: true },
+];
+
+/** Local fallback if `/data/hotel-mock-data.json` cannot be fetched. */
+export const fallbackHotelMockPayload: HotelMockPayload = {
+    hotel: mockHotelProfile,
+    stats: mockHotelStats,
+    kpis: mockKpis,
+    revenue: mockRevenue,
+    channelBreakdown: mockChannelBreakdown,
+    recentGuests: mockRecentGuests,
+    bookings: mockBookings,
+    rooms: mockRooms,
+    serviceRequests: mockServiceRequests,
+    roomAvailability: mockRoomAvailability,
+    staff: mockStaff,
+    staffTasks: mockStaffTasks,
+    chatThreads: mockChatThreads,
+    chatMessages: Object.fromEntries(
+        Object.entries(mockChatMessages).map(([k, v]) => [k, v]),
+    ),
+    guestMessages: mockGuestMessages,
+    websiteSections: mockWebsiteSections,
+};

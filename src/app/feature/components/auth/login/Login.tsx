@@ -3,10 +3,39 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+
+import { getApiErrorMessage } from "@/lib/apiErrorMessage";
+import { useUserLoginMutation } from "@/store/api/authApi/authApi";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const [login, { isLoading }] = useUserLoginMutation();
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please enter both email and password");
+      return;
+    }
+    try {
+      const res = await login({ email, password }).unwrap();
+      if (res.data.accessToken) {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+      }
+      toast.success(`Welcome back, ${res.data.user.name}`);
+      router.push("/dashboard");
+    } catch (err) {
+      toast.error(getApiErrorMessage(err));
+    }
+  };
 
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
@@ -32,7 +61,7 @@ export default function LoginPage() {
             Sign in to manage your bookings and saved stays
           </p>
 
-          <form className="mt-8 flex flex-col gap-4">
+          <form className="mt-8 flex flex-col gap-4" onSubmit={onSubmit}>
             <div>
               <label className="block text-xs font-medium text-cream/70 mb-1.5">
                 Email address
@@ -44,8 +73,11 @@ export default function LoginPage() {
                 />
                 <input
                   type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@gmail.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent disabled:opacity-60"
                 />
               </div>
             </div>
@@ -69,8 +101,11 @@ export default function LoginPage() {
                 />
                 <input
                   type={showPassword ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-11 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+                  className="w-full pl-10 pr-11 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent disabled:opacity-60"
                 />
                 <button
                   type="button"
@@ -86,6 +121,8 @@ export default function LoginPage() {
             <label className="flex items-center gap-2 text-xs text-cream/70 mt-1">
               <input
                 type="checkbox"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
                 className="w-4 h-4 rounded border-gold/30 bg-white/10 accent-gold"
               />
               Keep me signed in
@@ -93,10 +130,20 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="mt-2 w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-gold/60 bg-transparent text-gold-soft text-sm font-semibold transition-all duration-300 hover:bg-gold hover:text-forest-deep hover:shadow-[0_12px_24px_-10px_rgba(201,162,39,0.5)]"
+              disabled={isLoading}
+              className="mt-2 w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-gold/60 bg-transparent text-gold-soft text-sm font-semibold transition-all duration-300 hover:bg-gold hover:text-forest-deep hover:shadow-[0_12px_24px_-10px_rgba(201,162,39,0.5)] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-transparent disabled:hover:text-gold-soft disabled:hover:shadow-none"
             >
-              Sign in
-              <ArrowRight size={16} />
+              {isLoading ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                <>
+                  Sign in
+                  <ArrowRight size={16} />
+                </>
+              )}
             </button>
           </form>
 

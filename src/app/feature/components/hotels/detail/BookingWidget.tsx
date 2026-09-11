@@ -11,10 +11,12 @@ import GuestsSelector from "../ui/GuestsSelector";
 import { useBookingStore } from "@/store/bookingStore";
 import type { DateRange } from "react-day-picker";
 import { Property } from "@/types/types";
+import { useRouter } from "next/navigation";
 
 const VALID_PROMOS = ["STAY10", "RESORT10"];
 
 export default function BookingWidget({ property }: { property: Property }) {
+  const router = useRouter();
   const {
     propertyId,
     checkIn,
@@ -55,9 +57,7 @@ export default function BookingWidget({ property }: { property: Property }) {
       return;
     }
     if (propertyId !== property.id) selectProperty(property.id);
-    toast.success("Booking confirmed!", {
-      description: `${property.name} · ${nights} night${nights > 1 ? "s" : ""} · ${rooms} room${rooms > 1 ? "s" : ""}`,
-    });
+    router.push(`/guest-form/${property.id}`);
   };
 
   return (
