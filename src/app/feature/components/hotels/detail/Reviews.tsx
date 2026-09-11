@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Star, Quote } from "lucide-react";
-import type { Property } from "@/lib/data/properties";
+import { Property } from "@/types/types";
 
 const REVIEWER_AVATARS = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
@@ -53,10 +53,7 @@ export default function Reviews({ property }: { property: Property }) {
         </p>
         <div className="mt-4 flex items-center gap-1">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className={cnStar(i)}
-            />
+            <Star key={i} className={cnStar(i)} />
           ))}
         </div>
 
@@ -81,7 +78,6 @@ export default function Reviews({ property }: { property: Property }) {
         </div>
       </div>
 
-      {/* Review cards */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {REVIEW_SEEDS.map((review, i) => (
           <figure
@@ -112,7 +108,7 @@ export default function Reviews({ property }: { property: Property }) {
                   {review.name}
                 </p>
                 <p className="text-xs text-caption">
-                  {review.location} · {2024 + i % 3} · Stayed {i + 1} night
+                  {review.location} · {2024 + (i % 3)} · Stayed {i + 1} night
                 </p>
               </div>
             </figcaption>

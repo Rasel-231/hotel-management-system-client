@@ -1,20 +1,5 @@
-export interface Property {
-  id: string;
-  name: string;
-  location: string;
-  country: string;
-  badge?: string;
-  rating: number;
-  reviewCount: number;
-  price: number;
-  currency: string;
-  images: string[];
-  description: string;
-  highlights: string[];
-  amenities: string[];
-  type: "resort" | "villa" | "boutique" | "hotel" | "lodge";
-  stars: number;
-}
+import { Property } from "@/types/types";
+
 
 export const PROPERTY_TYPES = [
   { value: "resort", label: "Resorts" },

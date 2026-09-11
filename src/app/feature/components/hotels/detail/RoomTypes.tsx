@@ -5,18 +5,8 @@ import { Users, Ruler, BedDouble, Check } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import type { Property } from "@/lib/data/properties";
-
-interface RoomVariant {
-  id: string;
-  name: string;
-  guests: number;
-  bed: string;
-  size: number;
-  price: number;
-  perks: string[];
-  image: string;
-}
+import { Property } from "@/types/types";
+import { RoomVariant } from "@/types/types";
 
 export default function RoomTypes({ property }: { property: Property }) {
   const rooms: RoomVariant[] = [
@@ -65,7 +55,7 @@ export default function RoomTypes({ property }: { property: Property }) {
               alt={room.name}
               fill
               sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+              className="object-cover img-tone transition-transform duration-700 group-hover:scale-[1.05]"
             />
             <span className="absolute left-3 top-3 rounded-full bg-forest px-3 py-1 text-[11px] font-semibold text-cream">
               {room.name}
@@ -111,7 +101,8 @@ export default function RoomTypes({ property }: { property: Property }) {
                 size="sm"
                 onClick={() =>
                   toast.success(`${room.name} selected`, {
-                    description: "Set your dates in the booking card to confirm.",
+                    description:
+                      "Set your dates in the booking card to confirm.",
                   })
                 }
                 className="rounded-full bg-forest px-5 text-cream hover:bg-forest/90"

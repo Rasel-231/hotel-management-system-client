@@ -3,10 +3,16 @@
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import BookingWidget from "./BookingWidget";
-import type { Property } from "@/lib/data/properties";
+
 import { useBookingStore } from "@/store/bookingStore";
+import { Property } from "@/types/types";
 
 export default function MobileBookingBar({ property }: { property: Property }) {
   const [open, setOpen] = useState(false);

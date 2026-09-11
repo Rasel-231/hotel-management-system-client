@@ -1,12 +1,5 @@
 import { cn } from "@/lib/utils";
-
-interface SectionHeadingProps {
-  eyebrow?: string;
-  title: string;
-  description?: string;
-  align?: "left" | "center";
-  className?: string;
-}
+import { SectionHeadingProps } from "@/types/types";
 
 export default function SectionHeading({
   eyebrow,
@@ -20,20 +13,20 @@ export default function SectionHeading({
       className={cn(
         "max-w-2xl",
         align === "center" && "mx-auto text-center",
-        className
+        className,
       )}
     >
       {eyebrow && (
         <p
           className={cn(
-            "flex items-center gap-2.5 mb-3 text-xs font-semibold tracking-[0.18em] uppercase text-gold",
-            align === "center" && "justify-center"
+            "flex items-center gap-2.5 mb-3 text-xs font-semibold tracking-[0.18em] uppercase text-gold-800",
+            align === "center" && "justify-center",
           )}
         >
-          <span className="inline-block w-6 h-[1.5px] bg-gold" />
+          <span className="inline-block w-6 h-[1.5px] bg-gold-800" />
           {eyebrow}
           {align === "center" && (
-            <span className="inline-block w-6 h-[1.5px] bg-gold" />
+            <span className="inline-block w-6 h-[1.5px] bg-gold-800" />
           )}
         </p>
       )}

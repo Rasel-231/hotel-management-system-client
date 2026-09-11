@@ -15,10 +15,18 @@
   --color-cream: #faf7ef;
   --color-sand: #f7f3ea;
   --color-line: #e7ddc9;
+  --color-forest-100: #e8efec;
+  --color-forest-300: #5c8577;
   --color-forest: #1f4d4d;
+  --color-forest-600: #1f4d4d;
   --color-forest-deep: #0d2b24;
-  --color-gold: #c9a227;
+  --color-forest-900: #0d2b24;
+  --color-gold-100: #f6ecd0;
+  --color-gold-400: #e8c581;
   --color-gold-soft: #e8c581;
+  --color-gold: #c9a227;
+  --color-gold-600: #c9a227;
+  --color-gold-800: #8a6b18;
   --color-olive: #4a6b3f;
   --color-blush: #e8d4d4;
   --color-danger: #c2492e;
@@ -144,4 +152,51 @@
   html {
     @apply font-sans;
   }
+  /* Linen / paper grain — barely-there texture for a boutique feel */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 98;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/></svg>");
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-forest-deep);
+  }
+}
+
+@utility img-tone {
+  filter: saturate(1.05) contrast(1.05);
+}
+
+@utility divider-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold) 50%,
+    transparent
+  );
+}
+
+@utility card-lux {
+  border: 1px solid color-mix(in oklab, var(--color-gold) 16%, var(--color-line));
+  box-shadow:
+    0 24px 60px -32px rgba(13, 43, 36, 0.45),
+    0 0 0 1px rgba(201, 162, 39, 0.06);
+}
+
+@utility btn-gold-outline {
+  border: 1px solid color-mix(in oklab, var(--color-gold) 55%, transparent);
+  background: transparent;
+  color: var(--color-gold-800);
+  transition: all 0.3s ease;
+}
+
+.btn-gold-outline:hover {
+  background: var(--color-gold);
+  color: var(--color-forest-deep);
 }

@@ -16,8 +16,8 @@ export default function PropertyCardsGrid() {
   const visible = showAll ? properties : properties.slice(0, INITIAL_COUNT);
 
   return (
-    <section className="w-full bg-cream py-14 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
+    <section className="w-full py-8 sm:py-12 lg:py-16">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading
             eyebrow="Handpicked stays"
@@ -26,7 +26,7 @@ export default function PropertyCardsGrid() {
           />
           <Link
             href="/hotels"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-full border border-line bg-sand px-5 py-2.5 text-sm font-medium text-forest transition-colors hover:border-gold hover:bg-gold/10"
+            className="group btn-gold-outline inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium"
           >
             View all stays
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

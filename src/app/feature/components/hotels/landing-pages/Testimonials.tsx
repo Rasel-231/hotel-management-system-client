@@ -5,14 +5,7 @@ import Image from "next/image";
 import { Quote, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SectionHeading from "../ui/SectionHeading";
-
-type Testimonial = {
-  id: string;
-  quote: string;
-  name: string;
-  location: string;
-  avatar: string;
-};
+import { Testimonial } from "@/types/types";
 
 const AVATARS = [
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
@@ -67,8 +60,12 @@ const testimonials: Testimonial[] = [
 
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <div className="relative flex-shrink-0 snap-start w-[78vw] sm:w-[360px] rounded-3xl border border-line bg-cream p-6 sm:p-7 shadow-[0_18px_40px_-28px_rgba(13,43,36,0.4)]">
-      <Quote className="h-7 w-7 text-gold-soft" fill="currentColor" strokeWidth={0} />
+    <div className="relative flex-shrink-0 snap-start w-[78vw] sm:w-[360px] rounded-3xl border border-line p-6 sm:p-7 shadow-[0_18px_40px_-28px_rgba(13,43,36,0.4)]">
+      <Quote
+        className="h-7 w-7 text-gold-soft"
+        fill="currentColor"
+        strokeWidth={0}
+      />
       <div className="mt-3 flex items-center gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />
@@ -120,8 +117,8 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="w-full bg-sand py-14 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
+    <section className="w-full  py-2 sm:py-7 ">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <SectionHeading
           eyebrow="Guest stories"
           title="Loved by travellers, worldwide"

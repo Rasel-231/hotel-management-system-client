@@ -4,17 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Play, X } from "lucide-react";
-
-type DiscoverVideoBannerProps = {
-  /** Direct .mp4 URL — used if youtubeId is not provided */
-  videoUrl?: string;
-  /** YouTube video id (e.g. "dQw4w9WgXcQ") — takes priority over videoUrl */
-  youtubeId?: string;
-  /** Thumbnail shown on the closed card */
-  thumbnail?: string;
-  /** Shown as a badge on the thumbnail and next to the watch link */
-  duration?: string;
-};
+import { DiscoverVideoBannerProps } from "@/types/types";
 
 export default function DiscoverVideoBanner({
   videoUrl = "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
@@ -44,7 +34,7 @@ export default function DiscoverVideoBanner({
 
   return (
     <>
-      <div className="w-full px-4 py-14 sm:px-8 sm:py-20">
+      <div className="w-full px-5 py-8 sm:py-16 md:px-8">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -64,7 +54,10 @@ export default function DiscoverVideoBanner({
             </p>
             <span className="mt-2 inline-flex items-center gap-2.5 text-sm font-medium text-forest">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-forest text-cream transition-transform group-hover:scale-105">
-                <Play className="h-3 w-3 translate-x-[1px]" fill="currentColor" />
+                <Play
+                  className="h-3 w-3 translate-x-[1px]"
+                  fill="currentColor"
+                />
               </span>
               Watch the film — {duration}
             </span>
@@ -80,7 +73,7 @@ export default function DiscoverVideoBanner({
               alt="Aerial view of an overwater resort in the Maldives"
               fill
               sizes="(max-width: 640px) 100vw, 700px"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover img-tone transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-forest-deep/50 to-transparent sm:hidden" />
             <span className="absolute right-3 top-3 rounded-full bg-forest-deep/70 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
@@ -97,7 +90,7 @@ export default function DiscoverVideoBanner({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-forest-deep/90 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-forest-deep/90 p-4 backdrop-blur-sm "
             onClick={() => setOpen(false)}
             role="dialog"
             aria-modal="true"
@@ -127,7 +120,12 @@ export default function DiscoverVideoBanner({
                   allowFullScreen
                 />
               ) : videoUrl ? (
-                <video className="h-full w-full" src={videoUrl} controls autoPlay />
+                <video
+                  className="h-full w-full"
+                  src={videoUrl}
+                  controls
+                  autoPlay
+                />
               ) : (
                 <div className="flex h-full w-full items-center justify-center px-6 text-center text-sm text-white/70">
                   Preview unavailable — provide a{" "}

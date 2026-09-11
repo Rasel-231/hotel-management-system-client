@@ -1,78 +1,135 @@
 import React from "react";
 
-const baseProps = {
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.6,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
-
-export const HotelLogo = () => (
-  <svg {...baseProps} className="w-10 h-10 text-blue-500 dark:text-blue-400">
-    <path d="M3 21h18" />
-    <path d="M5 21V9l7-5 7 5v12" />
-    <path d="M9 21v-6h6v6" />
-    <path d="M9 12h.01M15 12h.01M9 9h.01M15 9h.01" />
-  </svg>
-);
-
 export const FlightLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-cyan-500 dark:text-cyan-400">
-    <path d="M10.5 21 12 17l1.5 4" />
-    <path d="M2 12l20-7-7 20-3-8-8-3z" transform="translate(0,0)" />
-    <path d="M2.5 12.5 21 5 14.3 21.5l-3-8-8.8-1z" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="currentColor"
+  >
+    <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2.5 1.8V22l3.5-1 3.5 1v-1.2L13 19v-5.5l8 2.5z" />
   </svg>
 );
 
 export const TrainLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-amber-500 dark:text-amber-400">
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <rect x="5" y="3" width="14" height="13" rx="3" />
-    <path d="M5 11h14" />
-    <path d="M9 21l-2-3M15 21l2-3" />
-    <circle cx="8.5" cy="14" r="0.6" fill="currentColor" />
-    <circle cx="15.5" cy="14" r="0.6" fill="currentColor" />
+    <line x1="5" y1="11" x2="19" y2="11" />
+    <line x1="9" y1="3" x2="9" y2="11" />
+    <line x1="15" y1="3" x2="15" y2="11" />
+    <circle cx="8.5" cy="14" r="1" fill="currentColor" stroke="none" />
+    <circle cx="15.5" cy="14" r="1" fill="currentColor" stroke="none" />
+    <path d="M8 16.5 6 21M16 16.5l2 4.5" />
   </svg>
 );
 
 export const ShipLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-teal-500 dark:text-teal-400">
-    <path d="M4 15h16l-2 5H6l-2-5z" />
-    <path d="M6 15V6h8l3 9" />
-    <path d="M9 6V3h3v3" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 17h18l-2.5 4h-13z" />
+    <path d="M5 17V9h14v8" />
+    <path d="M9 9V4h6v5" />
+    <line x1="12" y1="2" x2="12" y2="4" />
+    <line x1="2" y1="20.5" x2="22" y2="20.5" />
   </svg>
 );
 
 export const CarLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-rose-500 dark:text-rose-400">
-    <path d="M4 16V11l2.5-5h11L20 11v5" />
-    <path d="M4 16h16" />
-    <circle cx="7.5" cy="17" r="1.5" />
-    <circle cx="16.5" cy="17" r="1.5" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 16V11l2.2-5A2 2 0 0 1 8 5h8a2 2 0 0 1 1.8 1l2.2 5v5" />
+    <path d="M2.5 16h19v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
+    <circle cx="7" cy="16" r="1.6" fill="currentColor" stroke="none" />
+    <circle cx="17" cy="16" r="1.6" fill="currentColor" stroke="none" />
+    <line x1="4" y1="11" x2="20" y2="11" />
   </svg>
 );
 
 export const RestaurantLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-orange-500 dark:text-orange-400">
-    <path d="M7 2v8a2 2 0 0 0 2 2v10" />
-    <path d="M7 2v6M9 2v6M11 2v6" />
-    <path d="M17 2c-1.7 0-3 1.8-3 4s1.3 4 3 4v12" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M6 2v8a2 2 0 0 0 2 2v10" />
+    <path d="M6 2v6M9 2v6" />
+    <path d="M17 2c-2 1-3 3-3 6s1 4 3 5v9" />
   </svg>
 );
 
 export const SpaLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-violet-500 dark:text-violet-400">
-    <path d="M12 21c-4-2-6-5-6-9 3 0 5 1.5 6 4 1-2.5 3-4 6-4 0 4-2 7-6 9z" />
-    <path d="M12 12c0-4 2-6 2-9-3 0-4 3-4 5" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 21c-4-1-6-4-6-8 3 0 5 1 6 3 1-2 3-3 6-3 0 4-2 7-6 8z" />
+    <path d="M12 13c0-4 1-7 4-9-1 4-1 7-4 9z" />
+    <path d="M12 13c0-4-1-7-4-9 1 4 1 7 4 9z" />
   </svg>
 );
 
 export const RoomServiceLogo = () => (
-  <svg {...baseProps} className="w-7 h-7 text-emerald-500 dark:text-emerald-400">
-    <path d="M3 17h18" />
-    <path d="M5 17a7 7 0 0 1 14 0" />
-    <path d="M12 10V6" />
-    <circle cx="12" cy="4.5" r="1" fill="currentColor" stroke="none" />
+  <svg
+    viewBox="0 0 24 24"
+    className="w-8 h-8 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 18h18" />
+    <path d="M4 18a8 8 0 0 1 16 0" />
+    <line x1="12" y1="7" x2="12" y2="4" />
+    <circle cx="12" cy="3" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+export const HotelLogo = () => (
+  <svg
+    viewBox="0 0 24 24"
+    className="w-10 h-10 text-slate-700 dark:text-white"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.6"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 21V8l9-5 9 5v13" />
+    <path d="M3 21h18" />
+    <rect x="9" y="12" width="6" height="9" />
+    <line x1="7" y1="9" x2="7" y2="9.01" />
+    <line x1="17" y1="9" x2="17" y2="9.01" />
+    <line x1="12" y1="9" x2="12" y2="9.01" />
   </svg>
 );

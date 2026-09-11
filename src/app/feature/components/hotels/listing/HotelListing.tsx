@@ -40,7 +40,7 @@ export default function HotelListing() {
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.location.toLowerCase().includes(q) ||
-          p.country.toLowerCase().includes(q)
+          p.country.toLowerCase().includes(q),
       );
     }
 
@@ -57,7 +57,7 @@ export default function HotelListing() {
 
     if (filters.amenities.length > 0) {
       list = list.filter((p) =>
-        filters.amenities.every((a) => p.amenities.includes(a))
+        filters.amenities.every((a) => p.amenities.includes(a)),
       );
     }
 
@@ -82,8 +82,7 @@ export default function HotelListing() {
   }, [query.destination, filters]);
 
   const activeSortLabel =
-    SORT_OPTIONS.find((o) => o.value === filters.sort)?.label ??
-    "Recommended";
+    SORT_OPTIONS.find((o) => o.value === filters.sort)?.label ?? "Recommended";
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
@@ -93,7 +92,7 @@ export default function HotelListing() {
 
       <header className="mt-10 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold-800">
             {results.length} stays
           </p>
           <h1 className="mt-1 font-serif text-3xl text-forest md:text-4xl">
@@ -116,7 +115,7 @@ export default function HotelListing() {
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
-                "inline-flex h-10 items-center gap-2 rounded-full border border-line bg-cream px-5 text-sm font-medium text-forest transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                "inline-flex h-10 items-center gap-2 rounded-full border border-line bg-cream px-5 text-sm font-medium text-forest transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
               )}
             >
               <ArrowUpDown className="h-4 w-4 text-gold" />
@@ -129,7 +128,7 @@ export default function HotelListing() {
                   key={opt.value}
                   onClick={() => setFilters({ sort: opt.value })}
                   className={cn(
-                    filters.sort === opt.value && "font-semibold text-forest"
+                    filters.sort === opt.value && "font-semibold text-forest",
                   )}
                 >
                   {opt.label}
@@ -163,7 +162,7 @@ export default function HotelListing() {
 
 function EmptyState({ onReset }: { onReset: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-cream px-6 py-20 text-center">
+    <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-line bg-cream px-6 py-7 text-center">
       <span className="flex h-16 w-16 items-center justify-center rounded-full bg-sand text-forest">
         <SearchX className="h-7 w-7" />
       </span>
@@ -176,7 +175,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       </p>
       <Button
         onClick={onReset}
-        className="mt-6 rounded-full bg-gold px-6 text-forest-deep hover:bg-gold-soft"
+        className="mt-6 rounded-full border border-gold-800/50 bg-transparent px-6 text-gold-800 hover:bg-gold-100"
       >
         Clear filters
       </Button>

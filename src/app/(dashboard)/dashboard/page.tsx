@@ -39,7 +39,9 @@ export default function DashboardPage() {
             <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-forest text-cream transition-colors group-hover:bg-gold group-hover:text-forest-deep">
               <card.icon className="h-5 w-5" />
             </span>
-            <h2 className="mt-4 font-serif text-xl text-forest">{card.title}</h2>
+            <h2 className="mt-4 font-serif text-xl text-forest">
+              {card.title}
+            </h2>
             <p className="mt-1 text-sm text-ink-soft">{card.desc}</p>
           </Link>
         ))}

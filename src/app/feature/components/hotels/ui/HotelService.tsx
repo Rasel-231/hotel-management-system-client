@@ -12,13 +12,76 @@ import {
 } from "../detail/Icons";
 
 const iconColors = {
-  1: { light: "bg-cyan-50", dark: "bg-cyan-950/40", border: "border-cyan-400/60", shadow: "shadow-cyan-400/30", spotlight: "bg-cyan-500/20 dark:bg-cyan-500/30", line: "#06b6d4", tooltipBg: "bg-cyan-600 dark:bg-cyan-500", glow: [6, 182, 212] },
-  2: { light: "bg-amber-50", dark: "bg-amber-950/40", border: "border-amber-400/60", shadow: "shadow-amber-400/30", spotlight: "bg-amber-500/20 dark:bg-amber-500/30", line: "#f59e0b", tooltipBg: "bg-amber-600 dark:bg-amber-500", glow: [245, 158, 11] },
-  3: { light: "bg-teal-50", dark: "bg-teal-950/40", border: "border-teal-400/60", shadow: "shadow-teal-400/30", spotlight: "bg-teal-500/20 dark:bg-teal-500/30", line: "#14b8a6", tooltipBg: "bg-teal-600 dark:bg-teal-500", glow: [20, 184, 166] },
-  4: { light: "bg-rose-50", dark: "bg-rose-950/40", border: "border-rose-400/60", shadow: "shadow-rose-400/30", spotlight: "bg-rose-500/20 dark:bg-rose-500/30", line: "#f43f5e", tooltipBg: "bg-rose-600 dark:bg-rose-500", glow: [244, 63, 94] },
-  5: { light: "bg-orange-50", dark: "bg-orange-950/40", border: "border-orange-400/60", shadow: "shadow-orange-400/30", spotlight: "bg-orange-500/20 dark:bg-orange-500/30", line: "#f97316", tooltipBg: "bg-orange-600 dark:bg-orange-500", glow: [249, 115, 22] },
-  6: { light: "bg-violet-50", dark: "bg-violet-950/40", border: "border-violet-400/60", shadow: "shadow-violet-400/30", spotlight: "bg-violet-500/20 dark:bg-violet-500/30", line: "#8b5cf6", tooltipBg: "bg-violet-600 dark:bg-violet-500", glow: [139, 92, 246] },
-  7: { light: "bg-emerald-50", dark: "bg-emerald-950/40", border: "border-emerald-400/60", shadow: "shadow-emerald-400/30", spotlight: "bg-emerald-500/20 dark:bg-emerald-500/30", line: "#10b981", tooltipBg: "bg-emerald-600 dark:bg-emerald-500", glow: [16, 185, 129] },
+  1: {
+    light: "bg-forest-100",
+    dark: "bg-forest/30",
+    border: "border-forest/40",
+    shadow: "shadow-forest/20",
+    spotlight: "bg-forest/15 dark:bg-forest/30",
+    line: "#1f4d4d",
+    tooltipBg: "bg-forest",
+    glow: [31, 77, 77],
+  },
+  2: {
+    light: "bg-gold-100",
+    dark: "bg-gold/30",
+    border: "border-gold/50",
+    shadow: "shadow-gold/30",
+    spotlight: "bg-gold/20 dark:bg-gold/30",
+    line: "#c9a227",
+    tooltipBg: "bg-forest-deep",
+    glow: [201, 162, 39],
+  },
+  3: {
+    light: "bg-olive/10",
+    dark: "bg-olive/40",
+    border: "border-olive/40",
+    shadow: "shadow-olive/20",
+    spotlight: "bg-olive/15 dark:bg-olive/30",
+    line: "#4a6b3f",
+    tooltipBg: "bg-olive",
+    glow: [74, 107, 63],
+  },
+  4: {
+    light: "bg-forest-100",
+    dark: "bg-forest-300/30",
+    border: "border-forest-300/50",
+    shadow: "shadow-forest/20",
+    spotlight: "bg-forest-300/20 dark:bg-forest-300/40",
+    line: "#5c8577",
+    tooltipBg: "bg-forest",
+    glow: [92, 133, 119],
+  },
+  5: {
+    light: "bg-cream",
+    dark: "bg-forest-deep/60",
+    border: "border-forest-deep/40",
+    shadow: "shadow-forest-deep/20",
+    spotlight: "bg-forest-deep/15 dark:bg-forest-deep/40",
+    line: "#0d2b24",
+    tooltipBg: "bg-forest-deep",
+    glow: [13, 43, 36],
+  },
+  6: {
+    light: "bg-gold-100",
+    dark: "bg-gold-800/50",
+    border: "border-gold-800/50",
+    shadow: "shadow-gold-800/25",
+    spotlight: "bg-gold-800/20 dark:bg-gold-800/40",
+    line: "#8a6b18",
+    tooltipBg: "bg-gold-800",
+    glow: [138, 107, 24],
+  },
+  7: {
+    light: "bg-cream",
+    dark: "bg-caption/30",
+    border: "border-caption/40",
+    shadow: "shadow-caption/20",
+    spotlight: "bg-caption/20 dark:bg-caption/40",
+    line: "#8a7a5c",
+    tooltipBg: "bg-caption",
+    glow: [138, 122, 92],
+  },
 };
 
 const IconWrapper = ({
@@ -37,8 +100,12 @@ const IconWrapper = ({
   colorId?: number;
 }) => {
   const c = colorId ? iconColors[colorId as keyof typeof iconColors] : null;
-  const glowColor = c ? `rgba(${c.glow.join(",")}, 0.35)` : "rgba(59,130,246,0.3)";
-  const glowColorMid = c ? `rgba(${c.glow.join(",")}, 0.1)` : "rgba(59,130,246,0.1)";
+  const glowColor = c
+    ? `rgba(${c.glow.join(",")}, 0.35)`
+    : "rgba(31,77,77,0.3)";
+  const glowColorMid = c
+    ? `rgba(${c.glow.join(",")}, 0.1)`
+    : "rgba(31,77,77,0.1)";
 
   return (
     <div
@@ -46,22 +113,25 @@ const IconWrapper = ({
         backdrop-blur-xl rounded-2xl flex items-center justify-center transition-all duration-300 border
         ${
           isHighlighted
-            ? `${c?.dark || "dark:bg-gray-700/50"} ${c?.light || "bg-gray-100/80"} ${c?.border || "border-blue-400/50"} ${c?.shadow || "shadow-blue-500/20"} shadow-2xl animate-breathing-glow`
+            ? `${c?.dark || "dark:bg-forest/50"} ${c?.light || "bg-forest-100"} ${c?.border || "border-gold/40"} ${c?.shadow || "shadow-forest/10"} shadow-2xl animate-breathing-glow`
             : `dark:bg-white/5 bg-white/60 dark:border-white/20 border-gray-300/60 ${!isHovered && "animate-float"}`
         }
         ${
           isHovered && c
             ? `${c.dark} ${c.light} ${c.border} scale-110 ${c.shadow} shadow-2xl`
             : isHovered
-              ? "dark:bg-gray-600/50 bg-gray-200/80 border-blue-400/60 scale-110 dark:shadow-blue-400/30 shadow-blue-400/40 shadow-2xl"
-              : "dark:hover:bg-white/10 hover:bg-gray-100/80 dark:hover:border-white/20 hover:border-gray-300/60"
+              ? "dark:bg-forest/50 bg-forest-100 border-gold/50 scale-110 dark:shadow-gold/20 shadow-gold/20 shadow-2xl"
+              : "dark:hover:bg-white/10 hover:bg-forest-100 dark:hover:border-white/20 hover:border-gold/30"
         }
         ${className}
     `}
       style={{
         animationDelay: `${animationDelay}s`,
         ...(isHighlighted && c
-          ? { "--glow-color": glowColor, "--glow-color-mid": glowColorMid } as React.CSSProperties
+          ? ({
+              "--glow-color": glowColor,
+              "--glow-color-mid": glowColorMid,
+            } as React.CSSProperties)
           : {}),
       }}
     >
@@ -96,8 +166,17 @@ const IconGrid = () => {
           {Object.entries(iconColors).map(([id, c]) => (
             <filter key={`glow-${id}`} id={`glow-${id}`}>
               <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-              <feFlood floodColor={`rgb(${c.glow.join(",")})`} floodOpacity="0.6" result="color" />
-              <feComposite in="color" in2="coloredBlur" operator="in" result="colorBlur" />
+              <feFlood
+                floodColor={`rgb(${c.glow.join(",")})`}
+                floodOpacity="0.6"
+                result="color"
+              />
+              <feComposite
+                in="color"
+                in2="coloredBlur"
+                operator="in"
+                result="colorBlur"
+              />
               <feMerge>
                 <feMergeNode in="colorBlur" />
                 <feMergeNode in="SourceGraphic" />
@@ -118,16 +197,26 @@ const IconGrid = () => {
             const nextIcon = outerIcons[nextIndex];
             const c = iconColors[icon.id as keyof typeof iconColors];
 
-            const angle1 = (-90 + i * (360 / outerIcons.length)) * (Math.PI / 180);
-            const x1 = svgCenter + (radius - outerIconRadius) * Math.cos(angle1);
-            const y1 = svgCenter + (radius - outerIconRadius) * Math.sin(angle1);
+            const angle1 =
+              (-90 + i * (360 / outerIcons.length)) * (Math.PI / 180);
+            const x1 =
+              svgCenter + (radius - outerIconRadius) * Math.cos(angle1);
+            const y1 =
+              svgCenter + (radius - outerIconRadius) * Math.sin(angle1);
 
-            const angle2 = (-90 + nextIndex * (360 / outerIcons.length)) * (Math.PI / 180);
-            const x2 = svgCenter + (radius - outerIconRadius) * Math.cos(angle2);
-            const y2 = svgCenter + (radius - outerIconRadius) * Math.sin(angle2);
+            const angle2 =
+              (-90 + nextIndex * (360 / outerIcons.length)) * (Math.PI / 180);
+            const x2 =
+              svgCenter + (radius - outerIconRadius) * Math.cos(angle2);
+            const y2 =
+              svgCenter + (radius - outerIconRadius) * Math.sin(angle2);
 
-            const isLineActive = hoveredId === icon.id || hoveredId === nextIcon.id;
-            const activeColor = hoveredId === icon.id ? c.line : iconColors[nextIcon.id as keyof typeof iconColors].line;
+            const isLineActive =
+              hoveredId === icon.id || hoveredId === nextIcon.id;
+            const activeColor =
+              hoveredId === icon.id
+                ? c.line
+                : iconColors[nextIcon.id as keyof typeof iconColors].line;
 
             return (
               <line
@@ -136,11 +225,15 @@ const IconGrid = () => {
                 y1={y1}
                 x2={x2}
                 y2={y2}
-                stroke={isLineActive ? activeColor : "#6B7280"}
+                stroke={isLineActive ? activeColor : "#8a7a5c"}
                 strokeWidth="1.5"
                 className="transition-all duration-300"
                 style={{ opacity: isLineActive ? 0.8 : 0.2 }}
-                filter={isLineActive ? `url(#glow-${hoveredId === icon.id ? icon.id : nextIcon.id})` : "none"}
+                filter={
+                  isLineActive
+                    ? `url(#glow-${hoveredId === icon.id ? icon.id : nextIcon.id})`
+                    : "none"
+                }
               />
             );
           })}
@@ -150,10 +243,14 @@ const IconGrid = () => {
             const angleInRadians = angleInDegrees * (Math.PI / 180);
             const c = iconColors[icon.id as keyof typeof iconColors];
 
-            const startX = svgCenter + centralIconRadius * Math.cos(angleInRadians);
-            const startY = svgCenter + centralIconRadius * Math.sin(angleInRadians);
-            const endX = svgCenter + (radius - outerIconRadius) * Math.cos(angleInRadians);
-            const endY = svgCenter + (radius - outerIconRadius) * Math.sin(angleInRadians);
+            const startX =
+              svgCenter + centralIconRadius * Math.cos(angleInRadians);
+            const startY =
+              svgCenter + centralIconRadius * Math.sin(angleInRadians);
+            const endX =
+              svgCenter + (radius - outerIconRadius) * Math.cos(angleInRadians);
+            const endY =
+              svgCenter + (radius - outerIconRadius) * Math.sin(angleInRadians);
             const isSpokeActive = hoveredId === icon.id;
 
             return (
@@ -163,7 +260,7 @@ const IconGrid = () => {
                 y1={startY}
                 x2={endX}
                 y2={endY}
-                stroke={isSpokeActive ? c.line : "#6B7280"}
+                stroke={isSpokeActive ? c.line : "#8a7a5c"}
                 strokeWidth="1.5"
                 className="transition-all duration-300"
                 style={{ opacity: isSpokeActive ? 1 : 0.2 }}
@@ -261,7 +358,7 @@ export default function HotelServiceWeb() {
       </style>
 
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.1),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(31,77,77,0.12),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(201,162,39,0.18),rgba(255,255,255,0))]"></div>
       </div>
 
       <div className="relative z-10 container mx-auto flex items-center justify-center">

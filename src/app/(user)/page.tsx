@@ -9,6 +9,7 @@ import Testimonials from "../feature/components/hotels/landing-pages/Testimonial
 import DiscoverVideoBanner from "../feature/components/hotels/landing-pages/Discovervideobanner";
 import ResortHero from "../feature/components/hotels/landing-pages/ResortHero";
 import HotelServiceWeb from "../feature/components/hotels/ui/HotelService";
+import { Reveal } from "../../components/ui/reveal";
 
 const userPage = () => {
   return (
@@ -16,13 +17,25 @@ const userPage = () => {
       <ResortHero />
       <FeaturedDestinations />
       <CuratedRetreatsSlider />
-      <PropertyCardsGrid />
+      <div className="divider-gold" />
+      <Reveal>
+        <PropertyCardsGrid />
+      </Reveal>
       <SpecialOffersSlider />
-      <WhyChooseStayEase />
-      <OurCommitments />
+      <Reveal>
+        <WhyChooseStayEase />
+      </Reveal>
+      <Reveal>
+        <OurCommitments />
+      </Reveal>
+      <div className="divider-gold" />
       <HotelServiceWeb />
-      <Testimonials />
-      <DiscoverVideoBanner />
+      <Reveal>
+        <Testimonials />
+      </Reveal>
+      <Reveal>
+        <DiscoverVideoBanner />
+      </Reveal>
     </div>
   );
 };

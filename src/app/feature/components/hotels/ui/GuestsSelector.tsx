@@ -9,19 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-interface GuestsState {
-  adults: number;
-  children: number;
-  rooms: number;
-}
-
-interface GuestsSelectorProps {
-  value: GuestsState;
-  onChange: (value: GuestsState) => void;
-  className?: string;
-  align?: "start" | "center" | "end";
-}
+import { GuestsSelectorProps } from "@/types/types";
 
 function Stepper({
   label,
@@ -86,14 +74,10 @@ export default function GuestsSelector({
 }: GuestsSelectorProps) {
   const parts: string[] = [];
   if (value.adults > 0) {
-    parts.push(
-      `${value.adults} adult${value.adults > 1 ? "s" : ""}`
-    );
+    parts.push(`${value.adults} adult${value.adults > 1 ? "s" : ""}`);
   }
   if (value.children > 0) {
-    parts.push(
-      `${value.children} child${value.children > 1 ? "ren" : ""}`
-    );
+    parts.push(`${value.children} child${value.children > 1 ? "ren" : ""}`);
   }
   const totalGuests = value.adults + value.children;
   const label =
@@ -109,7 +93,7 @@ export default function GuestsSelector({
             variant="ghost"
             className={cn(
               "group flex-col items-start justify-center gap-1 rounded-2xl border border-line bg-cream px-4 py-3 h-auto w-full text-left font-normal hover:bg-sand hover:border-gold/50 focus-visible:bg-cream",
-              className
+              className,
             )}
           >
             <span className="flex items-center gap-2 text-ink">
@@ -136,8 +120,7 @@ export default function GuestsSelector({
           <span className="text-sm font-semibold text-forest">
             {totalGuests === 0
               ? "Who's staying?"
-              : `${totalGuests} guest${totalGuests > 1 ? "s" : ""}`
-            }
+              : `${totalGuests} guest${totalGuests > 1 ? "s" : ""}`}
           </span>
         </div>
         <div className="flex flex-col gap-4 p-5">

@@ -123,7 +123,7 @@ export default function Footer() {
       </div>
 
       {/* Main columns */}
-      <div className="max-w-7xl mx-auto px-5 md:px-8 py-14 grid grid-cols-2 md:grid-cols-6 gap-8">
+      <div className="max-w-7xl mx-auto px-5 md:px-8 py-7 grid grid-cols-2 md:grid-cols-6 gap-8">
         {/* Brand column */}
         <div className="col-span-2 md:col-span-2">
           <span className="font-serif text-2xl font-bold tracking-tight text-cream">
@@ -140,7 +140,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <Mail size={15} className="text-gold-soft" />
-              <span>support@neststay.com</span>
+              <span>support@Hotel NextStay.com</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin size={15} className="text-gold-soft" />
@@ -157,7 +157,7 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2.5">
               {col.links.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
                     className="text-sm text-cream/60 hover:text-gold-soft transition-colors"
@@ -193,7 +193,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-5 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-cream/40 text-center md:text-left">
-            © {new Date().getFullYear()} NestStay. All rights reserved.
+            © {new Date().getFullYear()} Hotel NextStay. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link

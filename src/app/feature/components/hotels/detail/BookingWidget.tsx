@@ -2,20 +2,15 @@
 
 import { useEffect } from "react";
 import { differenceInCalendarDays } from "date-fns";
-import {
-  ShieldCheck,
-  Undo2,
-  Sparkles,
-  Lock,
-} from "lucide-react";
+import { ShieldCheck, Undo2, Sparkles, Lock } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import DateRangePicker from "../ui/DateRangePicker";
 import GuestsSelector from "../ui/GuestsSelector";
-import type { Property } from "@/lib/data/properties";
 import { useBookingStore } from "@/store/bookingStore";
 import type { DateRange } from "react-day-picker";
+import { Property } from "@/types/types";
 
 const VALID_PROMOS = ["STAY10", "RESORT10"];
 
@@ -121,14 +116,19 @@ export default function BookingWidget({ property }: { property: Property }) {
 
       {nights > 0 && (
         <div className="mt-6 space-y-2.5 border-t border-line pt-5 text-sm">
-          <Row label={`${property.price} × ${nights} night${nights > 1 ? "s" : ""} × ${rooms}`} value={subtotal} />
+          <Row
+            label={`${property.price} × ${nights} night${nights > 1 ? "s" : ""} × ${rooms}`}
+            value={subtotal}
+          />
           {promoValid && (
             <Row label="Promo discount (10%)" value={-discount} accent />
           )}
           <Row label="Taxes & fees (12%)" value={taxes} />
           <div className="flex items-center justify-between border-t border-line pt-3 text-base font-bold text-forest">
             <span>Total</span>
-            <span>{property.currency === "USD" ? "$" : property.currency} {total}</span>
+            <span>
+              {property.currency === "USD" ? "$" : property.currency} {total}
+            </span>
           </div>
         </div>
       )}
@@ -172,8 +172,7 @@ function Row({
     <div className="flex items-center justify-between text-ink-soft">
       <span>{label}</span>
       <span className={accent ? "font-semibold text-olive" : ""}>
-        {value >= 0 ? "+" : "-"}$
-        {Math.abs(value).toLocaleString()}
+        {value >= 0 ? "+" : "-"}${Math.abs(value).toLocaleString()}
       </span>
     </div>
   );

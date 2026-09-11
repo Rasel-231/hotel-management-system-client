@@ -6,18 +6,12 @@ import { motion } from "framer-motion";
 import { Heart, MapPin, Star, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
-import type { Property } from "@/lib/data/properties";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { cn } from "@/lib/utils";
+import { PropertyCardProps } from "@/types/types";
 
 const FALLBACK_IMG =
   "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1600&auto=format&fit=crop";
-
-interface PropertyCardProps {
-  property: Property;
-  index?: number;
-  className?: string;
-}
 
 export default function PropertyCard({
   property,
@@ -57,7 +51,7 @@ export default function PropertyCard({
             alt={property.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+            className="object-cover img-tone transition-transform duration-700 ease-out group-hover:scale-[1.05]"
           />
 
           {property.badge && (

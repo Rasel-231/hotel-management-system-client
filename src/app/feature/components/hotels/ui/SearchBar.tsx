@@ -39,9 +39,9 @@ export default function SearchBar() {
         e.preventDefault();
         submit();
       }}
-      className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_auto] rounded-3xl border border-line bg-cream p-3 shadow-[0_24px_50px_-28px_rgba(13,43,36,0.45)]"
+      className="grid w-full grid-cols-1 gap-3 rounded-3xl border border-line bg-cream p-2 shadow-[0_24px_50px_-28px_rgba(13,43,36,0.45)] sm:grid-cols-2 lg:grid-cols-[1.4fr_1.2fr_1fr_auto] lg:gap-0 lg:divide-x lg:divide-line/70"
     >
-      <label className="flex flex-col justify-center gap-1.5 rounded-2xl border border-line bg-cream px-4 py-3 hover:border-gold/50 focus-within:border-gold/50">
+      <label className="flex flex-col justify-center gap-1 rounded-2xl px-4 py-3 sm:py-4 lg:rounded-none lg:px-5">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Destination
         </span>
@@ -57,14 +57,18 @@ export default function SearchBar() {
         </span>
       </label>
 
-      <div className="flex flex-col justify-center gap-1.5">
+      <div className="flex flex-col justify-center gap-1 rounded-2xl px-4 py-3 sm:py-4 lg:rounded-none lg:px-5">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Check-in – Check-out
         </span>
-        <DateRangePicker value={range} onChange={updateDates} />
+        <DateRangePicker
+          value={range}
+          onChange={updateDates}
+          className="border-0 bg-transparent px-0 py-0 shadow-none hover:border-transparent hover:bg-transparent focus-visible:bg-transparent"
+        />
       </div>
 
-      <div className="flex flex-col justify-center gap-1.5">
+      <div className="flex flex-col justify-center gap-1 rounded-2xl px-4 py-3 sm:py-4 lg:rounded-none lg:px-5">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-caption">
           Guests & rooms
         </span>
@@ -75,13 +79,14 @@ export default function SearchBar() {
             rooms: query.rooms,
           }}
           onChange={updateGuests}
+          className="border-0 bg-transparent px-0 py-0 shadow-none hover:border-transparent hover:bg-transparent focus-visible:bg-transparent"
         />
       </div>
 
       <Button
         type="submit"
         size="lg"
-        className="h-full min-h-[56px] self-stretch rounded-2xl bg-gold px-8 text-[15px] font-semibold text-forest-deep shadow-[0_10px_24px_-10px_rgba(201,162,39,0.8)] hover:bg-gold-soft"
+        className="h-full min-h-[52px] self-stretch rounded-2xl bg-gold px-8 text-[15px] font-semibold text-forest-deep shadow-[0_10px_24px_-10px_rgba(201,162,39,0.8)] hover:bg-gold-soft sm:rounded-2xl lg:min-h-0"
       >
         <Search className="h-4 w-4" />
         Search

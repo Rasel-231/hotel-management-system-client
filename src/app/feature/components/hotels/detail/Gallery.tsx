@@ -5,16 +5,12 @@ import Image from "next/image";
 import { Expand, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import type { Property } from "@/lib/data/properties";
-import { cn } from "@/lib/utils";
 
-interface GalleryProps {
-  property: Property;
-}
+import { cn } from "@/lib/utils";
+import { GalleryProps } from "@/types/types";
 
 export default function Gallery({ property }: GalleryProps) {
   const images = property.images;
-  // Pad to 5 slots so the grid is always full (reuse images as placeholder).
   const slots = useMemo(() => {
     const result = [...images];
     for (let i = 0; i < 5; i++) {
@@ -28,7 +24,7 @@ export default function Gallery({ property }: GalleryProps) {
   const close = () => setLightboxIndex(null);
   const step = (dir: 1 | -1) =>
     setLightboxIndex((cur) =>
-      cur === null ? cur : (cur + dir + slots.length) % slots.length
+      cur === null ? cur : (cur + dir + slots.length) % slots.length,
     );
 
   return (
@@ -43,7 +39,7 @@ export default function Gallery({ property }: GalleryProps) {
             className={cn(
               "group relative overflow-hidden rounded-2xl bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
               i === 0 &&
-                "col-span-4 row-span-1 h-[220px] sm:h-[320px] md:col-span-2 md:row-span-2 md:h-auto"
+                "col-span-4 row-span-1 h-[220px] sm:h-[320px] md:col-span-2 md:row-span-2 md:h-auto",
             )}
           >
             <Image
@@ -52,7 +48,7 @@ export default function Gallery({ property }: GalleryProps) {
               fill
               priority={i === 0}
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover img-tone transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
             <span className="absolute inset-0 bg-forest-deep/0 transition-colors group-hover:bg-forest-deep/20" />
             <span className="absolute bottom-2 right-2 hidden h-8 w-8 items-center justify-center rounded-full bg-cream/90 text-forest opacity-0 transition-opacity group-hover:opacity-100 md:flex">

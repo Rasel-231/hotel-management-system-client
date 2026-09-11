@@ -11,17 +11,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-type Offer = {
-  id: string;
-  title: string;
-  description: string;
-  bg: string;
-  textColor: string;
-  subColor: string;
-  icon?: React.ElementType;
-  image?: string;
-};
+import { Offer } from "@/types/types";
 
 const offers: Offer[] = [
   {
@@ -29,7 +19,7 @@ const offers: Offer[] = [
     title: "Save 25% On 3+ Nights",
     description:
       "Save 25% on 3+ nights, terms and conditions apply, and book to your dates.",
-    bg: "bg-[#1f4d4d]",
+    bg: "bg-forest",
     textColor: "text-white",
     subColor: "text-white/75",
     icon: Percent,
@@ -39,9 +29,9 @@ const offers: Offer[] = [
     title: "Free Breakfast",
     description:
       "Enjoy a complimentary breakfast spread each morning, or choose room service instead.",
-    bg: "bg-[#f3e6cf]",
-    textColor: "text-[#241c10]",
-    subColor: "text-[#6b5c3f]",
+    bg: "bg-gold-100",
+    textColor: "text-ink",
+    subColor: "text-caption",
     image:
       "https://images.unsplash.com/photo-1768319920501-2d124ccfd8dc?q=80&w=800&auto=format&fit=crop",
   },
@@ -50,7 +40,7 @@ const offers: Offer[] = [
     title: "Free Late Checkout",
     description:
       "Check out at 2 PM instead of the usual time, no extra charge, subject to availability.",
-    bg: "bg-[#26324a]",
+    bg: "bg-forest-deep",
     textColor: "text-white",
     subColor: "text-white/75",
     icon: Clock3,
@@ -60,7 +50,7 @@ const offers: Offer[] = [
     title: "Airport Pickup Included",
     description:
       "A complimentary private transfer from the airport straight to your room.",
-    bg: "bg-[#4a5a3f]",
+    bg: "bg-olive",
     textColor: "text-white",
     subColor: "text-white/75",
     icon: Car,
@@ -70,9 +60,9 @@ const offers: Offer[] = [
     title: "Spa Credit $50",
     description:
       "Fifty dollars toward any spa treatment, redeemable once per stay.",
-    bg: "bg-[#e8d4d4]",
-    textColor: "text-[#241c10]",
-    subColor: "text-[#6b5c3f]",
+    bg: "bg-blush",
+    textColor: "text-ink",
+    subColor: "text-caption",
     icon: Sparkles,
   },
 ];
@@ -82,7 +72,7 @@ function OfferCard({ offer }: { offer: Offer }) {
   return (
     <div
       className={cn(
-        "relative flex-shrink-0 snap-start overflow-hidden rounded-2xl",
+        "relative flex-shrink-0 snap-start overflow-hidden rounded-2xl -900",
         "w-[68vw] sm:w-[300px] h-[190px]",
         offer.bg,
       )}
@@ -94,7 +84,7 @@ function OfferCard({ offer }: { offer: Offer }) {
             alt={offer.title}
             fill
             sizes="200px"
-            className="object-cover"
+            className="object-cover img-tone"
           />
         </div>
       )}
@@ -135,11 +125,11 @@ export default function SpecialOffersSlider() {
   };
 
   return (
-    <section className="w-full py-14 sm:py-20">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
+    <section className="w-full py-8 sm:py-12 lg:py-16">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex items-end justify-between mb-5 sm:mb-6">
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gold-800">
               Limited season
             </p>
             <h2 className="font-serif text-3xl text-forest">

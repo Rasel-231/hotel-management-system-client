@@ -1,11 +1,5 @@
+import { WishlistState } from "@/types/types";
 import { create } from "zustand";
-
-interface WishlistState {
-  ids: string[];
-  toggle: (id: string) => boolean;
-  has: (id: string) => boolean;
-  remove: (id: string) => void;
-}
 
 export const useWishlistStore = create<WishlistState>((set, get) => ({
   ids: [],

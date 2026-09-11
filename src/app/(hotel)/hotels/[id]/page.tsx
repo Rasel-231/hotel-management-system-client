@@ -2,15 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import PropertyDetail from "../../../feature/components/hotels/detail/PropertyDetail";
 import { getPropertyById } from "@/lib/data/properties";
-
-interface Props {
-  params: Promise<{ id: string }>;
-}
+import { Props } from "@/types/types";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const property = getPropertyById(id);
-  if (!property) return { title: "Property not found | NestStay" };
+  if (!property) return { title: "Property not found | Hotel NextStay" };
   return {
     title: `${property.name} — Book from $${property.price}/night`,
     description: property.description,

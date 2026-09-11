@@ -1,28 +1,7 @@
+import { SearchFilters, SearchQuery, SortOption } from "@/types/types";
 import { create } from "zustand";
 
-export interface SearchQuery {
-  destination: string;
-  checkIn: Date | null;
-  checkOut: Date | null;
-  adults: number;
-  children: number;
-  rooms: number;
-}
-
-export type SortOption =
-  | "recommended"
-  | "price-asc"
-  | "price-desc"
-  | "rating"
-  | "popular";
-
-export interface SearchFilters {
-  priceRange: [number, number];
-  stars: number[];
-  propertyTypes: string[];
-  amenities: string[];
-  sort: SortOption;
-}
+export type { SortOption };
 
 const initialQuery: SearchQuery = {
   destination: "",

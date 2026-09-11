@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Star, ArrowRight } from "lucide-react";
-
-import { properties, type Property } from "@/lib/data/properties";
+import { properties } from "@/lib/data/properties";
+import { Property } from "@/types/types";
 
 export default function SimilarProperties({
   currentId,
@@ -34,7 +34,7 @@ function SimilarCard({ property }: { property: Property }) {
           alt={property.name}
           fill
           sizes="260px"
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+          className="object-cover img-tone transition-transform duration-700 group-hover:scale-[1.05]"
         />
       </div>
       <div className="p-4">

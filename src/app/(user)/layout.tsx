@@ -7,7 +7,7 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-sand">
+    <div>
       <Navbar />
       <main>{children}</main>
       <Footer />

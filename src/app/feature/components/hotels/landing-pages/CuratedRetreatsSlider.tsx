@@ -4,14 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-type Retreat = {
-  id: string;
-  image: string;
-  title: string;
-  location: string;
-  description: string;
-};
+import { Retreat } from "@/types/types";
 
 const retreats: Retreat[] = [
   {
@@ -75,6 +68,7 @@ function RetreatCard({ retreat }: { retreat: Retreat }) {
     <div
       data-card
       className="
+      
         flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl
         border border-line bg-cream shadow-sm transition-shadow
         hover:shadow-md sm:flex-row
@@ -87,7 +81,7 @@ function RetreatCard({ retreat }: { retreat: Retreat }) {
           alt={retreat.title}
           fill
           sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 31vw"
-          className="object-cover"
+          className="object-cover img-tone"
         />
       </div>
       <div className="flex flex-1 flex-col justify-between p-4 sm:p-5">
@@ -146,8 +140,6 @@ export default function CuratedRetreatsSlider() {
     });
   };
 
-  // Autoplay — pauses on hover, touch, or keyboard focus, and is skipped
-  // entirely for people who have reduced motion turned on.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -163,7 +155,7 @@ export default function CuratedRetreatsSlider() {
 
   return (
     <section
-      className="w-full py-14 sm:py-20"
+      className="mx-auto w-full max-w-7xl px-5 py-8 sm:py-16 md:px-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
@@ -171,7 +163,7 @@ export default function CuratedRetreatsSlider() {
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={resumeAfterTouch}
     >
-      <div className="mx-auto mb-6 flex max-w-7xl items-end justify-between gap-4 px-4 sm:mb-8 md:px-8">
+      <div className="mx-auto mb-6 flex  items-end justify-between gap-4 sm:mb-8">
         <div>
           <h2 className="font-serif text-2xl text-forest sm:text-3xl">
             Retreats worth planning around

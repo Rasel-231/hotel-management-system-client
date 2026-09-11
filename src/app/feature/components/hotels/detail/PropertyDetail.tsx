@@ -33,7 +33,7 @@ import MobileBookingBar from "./MobileBookingBar";
 import RoomTypes from "./RoomTypes";
 import Reviews from "./Reviews";
 import SimilarProperties from "./SimilarProperties";
-import type { Property } from "@/lib/data/properties";
+import { Property } from "@/types/types";
 import { useWishlistStore } from "@/store/wishlistStore";
 import { cn } from "@/lib/utils";
 
@@ -78,7 +78,10 @@ export default function PropertyDetail({ property }: { property: Property }) {
     <div className="mx-auto max-w-7xl px-4 pb-28 pt-8 md:px-8 lg:pb-16">
       {/* Breadcrumb */}
       <nav className="mb-6 flex items-center gap-2 text-sm text-caption">
-        <Link href="/hotels" className="flex items-center gap-1 hover:text-forest">
+        <Link
+          href="/hotels"
+          className="flex items-center gap-1 hover:text-forest"
+        >
           <ChevronLeft className="h-4 w-4" />
           All stays
         </Link>
@@ -120,7 +123,7 @@ export default function PropertyDetail({ property }: { property: Property }) {
                   key={i}
                   className={cn(
                     "h-4 w-4",
-                    i < property.stars ? "fill-gold text-gold" : "text-line"
+                    i < property.stars ? "fill-gold text-gold" : "text-line",
                   )}
                 />
               ))}
@@ -141,18 +144,20 @@ export default function PropertyDetail({ property }: { property: Property }) {
             type="button"
             onClick={() => {
               const added = toggle(property.id);
-              toast[
-                added ? "success" : "message"
-              ](`${property.name} ${added ? "saved to" : "removed from"} wishlist`);
+              toast[added ? "success" : "message"](
+                `${property.name} ${added ? "saved to" : "removed from"} wishlist`,
+              );
             }}
             className={cn(
               "flex h-11 items-center gap-2 rounded-full border px-5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
               liked
                 ? "border-danger/30 bg-danger/10 text-danger"
-                : "border-line bg-cream text-forest hover:bg-sand"
+                : "border-line bg-cream text-forest hover:bg-sand",
             )}
           >
-            <Heart className={cn("h-[18px] w-[18px]", liked && "fill-danger")} />
+            <Heart
+              className={cn("h-[18px] w-[18px]", liked && "fill-danger")}
+            />
             {liked ? "Saved" : "Save"}
           </button>
         </div>
@@ -182,7 +187,6 @@ export default function PropertyDetail({ property }: { property: Property }) {
             </ul>
           </section>
 
-          {/* Amenities */}
           <section>
             <h2 className="font-serif text-2xl text-forest">Amenities</h2>
             <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3">
@@ -216,25 +220,19 @@ export default function PropertyDetail({ property }: { property: Property }) {
 
           {/* Reviews */}
           <section>
-            <h2 className="font-serif text-2xl text-forest">
-              Guest reviews
-            </h2>
+            <h2 className="font-serif text-2xl text-forest">Guest reviews</h2>
             <p className="mb-4 mt-1 text-sm text-caption">
               Based on real stays — recent and verified.
             </p>
             <Reviews property={property} />
           </section>
         </div>
-
-        {/* Desktop booking widget */}
         <aside className="hidden lg:block">
           <div className="sticky top-28">
             <BookingWidget property={property} />
           </div>
         </aside>
       </div>
-
-      {/* Similar properties */}
       <section className="mt-16">
         <h2 className="mb-5 font-serif text-2xl text-forest">
           You may also love

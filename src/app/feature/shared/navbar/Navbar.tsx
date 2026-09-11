@@ -26,6 +26,7 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const wishlistCount = useWishlistStore((s) => s.ids.length);
 
@@ -34,9 +35,20 @@ export default function Navbar() {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className={`sticky top-0 z-50 w-full bg-[#0d2b24]/95 backdrop-blur-2xl border-b border-gold/20 shadow-[0_10px_30px_-10px_rgba(5,20,16,0.5)] transition-all duration-500 ease-out ${
+      className={`sticky top-0 z-50 w-full backdrop-blur-2xl border-b transition-all duration-500 ease-out ${
+        scrolled
+          ? "bg-forest-deep/95 border-gold/20 shadow-[0_10px_30px_-10px_rgba(5,20,16,0.5)]"
+          : "bg-forest-deep/70 border-white/10 shadow-none"
+      } ${
         visible ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
       }`}
     >
