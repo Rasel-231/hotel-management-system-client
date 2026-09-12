@@ -1,50 +1,58 @@
 "use client";
 
+import { useCallback, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { BarChart3, Building2, Construction, Settings, Users } from "lucide-react";
+import { cn } from "@/lib/utils";
 import BookingsSection from "@/app/feature/components/management/Bookingssection";
+import BookingDetail from "@/app/feature/components/management/BookingDetail";
 import GuestInboxSection from "@/app/feature/components/management/Guestinboxsection";
 import LiveChatSection from "@/app/feature/components/management/Livechatsection";
+import NewBookingDialog, { type NewBookingInput } from "@/app/feature/components/management/NewBookingDialog";
 import OverviewSection from "@/app/feature/components/management/Overviewsection";
 import RoomAvailabilitySection from "@/app/feature/components/management/Roomavailabilitysection";
 import RoomsServicesSection from "@/app/feature/components/management/Roomsservicessection";
-import { AdminTab } from "@/app/feature/components/management/Sidebar";
 import WebsiteControlSection from "@/app/feature/components/management/Websitecontrolsection";
+import { useBookings, useDashboardStats, useRooms } from "@/hooks/useAdminQuery";
+import type { AdminTabId } from "@/lib/roles";
+import { useSessionStore } from "@/store/sessionStore";
+import { useUiStore } from "@/store/uiStore";
 import {
-  mockBookings,
   mockChatMessages,
   mockChatThreads,
   mockGuestMessages,
-  mockKpis,
-  mockRevenue,
-  mockRoomAvailability,
-  mockRooms,
   mockServiceRequests,
   mockWebsiteSections,
 } from "@/lib/data/MockData";
-import { useSearchParams } from "next/navigation";
-import { Users, BarChart3, Settings, Construction } from "lucide-react";
-import { cn } from "@/lib/utils";
+import type { Booking } from "@/types/types";
 
-// ── Placeholder for unbuilt sections ─────────────────────────────────────────
+// ── Placeholder for unbuilt/out-of-scope sections ────────────────────────────
 const PLACEHOLDER_META: Record<
   string,
   { icon: React.ElementType; iconBg: string; iconColor: string; hint: string }
 > = {
+  platform: {
+    icon: Building2,
+    iconBg: "bg-forest-100",
+    iconColor: "text-forest",
+    hint: "Review new hotels submitting to the platform — coming soon",
+  },
   staff: {
     icon: Users,
-    iconBg: "bg-violet-50",
-    iconColor: "text-violet-600",
+    iconBg: "bg-olive/15",
+    iconColor: "text-olive",
     hint: "Shifts, roles & permissions — coming soon",
   },
   reports: {
     icon: BarChart3,
-    iconBg: "bg-sky-50",
-    iconColor: "text-sky-600",
+    iconBg: "bg-gold-100",
+    iconColor: "text-gold-800",
     hint: "Occupancy, revenue & channel breakdowns — coming soon",
   },
   settings: {
     icon: Settings,
-    iconBg: "bg-slate-50",
-    iconColor: "text-slate-600",
+    iconBg: "bg-sand",
+    iconColor: "text-caption",
     hint: "Hotel profile, taxes & payment methods — coming soon",
   },
 };
@@ -52,8 +60,8 @@ const PLACEHOLDER_META: Record<
 function Placeholder({ title, sub, tabId }: { title: string; sub: string; tabId: string }) {
   const meta = PLACEHOLDER_META[tabId] ?? {
     icon: Construction,
-    iconBg: "bg-slate-50",
-    iconColor: "text-slate-400",
+    iconBg: "bg-sand",
+    iconColor: "text-caption",
     hint: sub,
   };
   const Icon = meta.icon;
@@ -61,18 +69,20 @@ function Placeholder({ title, sub, tabId }: { title: string; sub: string; tabId:
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900">{title}</h2>
-        <p className="mt-1 text-sm text-slate-500">{sub}</p>
+        <h2 className="font-serif text-2xl font-semibold tracking-tight text-forest-deep">
+          {title}
+        </h2>
+        <p className="mt-1 text-sm text-ink-soft/70">{sub}</p>
       </div>
-      <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center">
+      <div className="flex min-h-[320px] flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-line bg-white p-10 text-center">
         <div className={cn("flex size-16 items-center justify-center rounded-2xl", meta.iconBg)}>
           <Icon size={28} className={meta.iconColor} />
         </div>
         <div>
-          <p className="text-base font-semibold text-slate-700">{title}</p>
-          <p className="mt-1 max-w-xs text-sm text-slate-400">{meta.hint}</p>
+          <p className="text-base font-semibold text-ink">{title}</p>
+          <p className="mt-1 max-w-xs text-sm text-caption">{meta.hint}</p>
         </div>
-        <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-400">
+        <span className="rounded-full border border-line bg-sand px-3 py-1 text-xs font-medium text-caption">
           Under construction
         </span>
       </div>
@@ -80,25 +90,166 @@ function Placeholder({ title, sub, tabId }: { title: string; sub: string; tabId:
   );
 }
 
-// ── Dashboard page router ─────────────────────────────────────────────────────
+// ── Dashboard page router (single route, `?tab=` switching, existing pattern) ─
 export default function AdminDashboardPage() {
   const searchParams = useSearchParams();
-  const tab = (searchParams.get("tab") as AdminTab) || "overview";
+  const router = useRouter();
+  const tab = (searchParams.get("tab") as AdminTabId) || "overview";
+  const bookingId = searchParams.get("booking");
 
-  // TODO: All mock data below will be replaced with RTK Query hooks per-section.
-  // See each section component file for specific TODO comments on which hooks to use.
+  const role = useSessionStore((s) => s.user.role);
+  const newBookingOpen = useUiStore((s) => s.newBookingOpen);
+  const closeNewBooking = useUiStore((s) => s.closeNewBooking);
+
+  const bookingsQuery = useBookings();
+  const roomsQuery = useRooms();
+  const statsQuery = useDashboardStats();
+
+  // Local copy of bookings is the working state (status transitions, new
+  // reservations). The mock fetch seeds it; RTK Query cache + mutations will
+  // replace both the fetch and this local copy later.
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [lastSeeded, setLastSeeded] = useState(bookingsQuery.data);
+
+  // Seed local state when the (mock) fetch returns — adjusting state during
+  // render keeps this in sync without an extra effect pass.
+  if (bookingsQuery.data !== lastSeeded) {
+    setLastSeeded(bookingsQuery.data);
+    if (bookingsQuery.data) setBookings(bookingsQuery.data);
+  }
+
+  const handleSelectBooking = useCallback((id: string) => {
+    router.replace(`?tab=bookings&booking=${id}`);
+  }, [router]);
+
+  const handleCloseBooking = useCallback(() => {
+    router.replace("?tab=bookings");
+  }, [router]);
+
+  const handleStatusChange = useCallback((id: string, next: Booking["status"]) => {
+    setBookings((prev) => prev.map((b) => (b.id === id ? { ...b, status: next } : b)));
+  }, []);
+
+  const handleCreateBooking = useCallback(
+    (input: NewBookingInput) => {
+      const rooms = roomsQuery.data ?? [];
+      const room = rooms.find((r) => r.id === input.roomId);
+      if (!room) return;
+
+      const nightMs = 86_400_000;
+      const nights = Math.max(
+        1,
+        Math.round(
+          (new Date(`${input.checkOut}T00:00:00`).getTime() -
+            new Date(`${input.checkIn}T00:00:00`).getTime()) /
+            nightMs,
+        ),
+      );
+
+      const nextNumber = bookings.reduce((max, b) => {
+        const n = parseInt(b.id.replace("PB-", ""), 10);
+        return Number.isNaN(n) ? max : Math.max(max, n);
+      }, 2200);
+
+      const booking: Booking = {
+        id: `PB-${nextNumber + 1}`,
+        guest: { name: input.guestName, email: input.email, phone: input.phone },
+        room: {
+          number: room.number,
+          type: room.type,
+          floor: room.floor,
+          rateName: room.bedConfig,
+        },
+        checkIn: input.checkIn,
+        checkOut: input.checkOut,
+        status: "pending",
+        amount: room.baseRate * nights,
+        currency: "BDT",
+        channel: "direct",
+        adults: input.adults,
+        children: 0,
+        nights,
+        createdAt: new Date().toISOString(),
+        source: "nextstay.hotel (admin)",
+      };
+
+      setBookings((prev) => [booking, ...prev]);
+    },
+    [bookings, roomsQuery.data],
+  );
+
+  const onRetryBookings = useCallback(() => bookingsQuery.refetch(), [bookingsQuery]);
+  const onRetryRooms = useCallback(() => roomsQuery.refetch(), [roomsQuery]);
+  const onRetryStats = useCallback(() => statsQuery.refetch(), [statsQuery]);
 
   switch (tab) {
     case "bookings":
-      return <BookingsSection bookings={mockBookings} />;
-
-    case "rooms":
+      if (bookingId) {
+        const booking = bookings.find((b) => b.id === bookingId);
+        return booking ? (
+          <BookingDetail
+            booking={booking}
+            onBack={handleCloseBooking}
+            onStatusChange={handleStatusChange}
+            role={role}
+          />
+        ) : (
+          <BookingsSection
+            bookings={bookings}
+            isLoading={bookingsQuery.isLoading}
+            isError={bookingsQuery.isError}
+            error={bookingsQuery.error}
+            onRetry={onRetryBookings}
+            onSelectBooking={handleSelectBooking}
+            onNewBooking={() => useUiStore.getState().openNewBooking()}
+          />
+        );
+      }
       return (
-        <RoomsServicesSection rooms={mockRooms} requests={mockServiceRequests} />
+        <>
+          <BookingsSection
+            bookings={bookings}
+            isLoading={bookingsQuery.isLoading}
+            isError={bookingsQuery.isError}
+            error={bookingsQuery.error}
+            onRetry={onRetryBookings}
+            onSelectBooking={handleSelectBooking}
+            onNewBooking={() => useUiStore.getState().openNewBooking()}
+          />
+          <NewBookingDialog
+            open={newBookingOpen}
+            onOpenChange={(open) => (open ? useUiStore.getState().openNewBooking() : closeNewBooking())}
+            rooms={roomsQuery.data ?? []}
+            onCreated={handleCreateBooking}
+          />
+        </>
       );
 
     case "availability":
-      return <RoomAvailabilitySection rooms={mockRoomAvailability} />;
+      return (
+        <RoomAvailabilitySection
+          rooms={roomsQuery.data ?? []}
+          bookings={bookings}
+          isLoading={roomsQuery.isLoading}
+          isError={roomsQuery.isError}
+          error={roomsQuery.error}
+          onRetry={onRetryRooms}
+        />
+      );
+
+    case "rooms":
+      return (
+        <>
+          <RoomsServicesSection
+            rooms={roomsQuery.data ?? []}
+            requests={mockServiceRequests}
+            isLoading={roomsQuery.isLoading}
+            isError={roomsQuery.isError}
+            error={roomsQuery.error}
+            onRetry={onRetryRooms}
+          />
+        </>
+      );
 
     case "website":
       return <WebsiteControlSection sections={mockWebsiteSections} />;
@@ -113,6 +264,11 @@ export default function AdminDashboardPage() {
 
     case "inbox":
       return <GuestInboxSection messages={mockGuestMessages} />;
+
+    case "platform":
+      return (
+        <Placeholder title="Platform Hotels" sub="Approvals for hotels joining NextStay" tabId="platform" />
+      );
 
     case "staff":
       return (
@@ -141,9 +297,14 @@ export default function AdminDashboardPage() {
     default:
       return (
         <OverviewSection
-          kpis={mockKpis}
-          revenue={mockRevenue}
-          attention={mockServiceRequests}
+          payload={statsQuery.data}
+          bookings={bookings}
+          isLoading={statsQuery.isLoading}
+          isError={statsQuery.isError}
+          error={statsQuery.error}
+          onRetry={onRetryStats}
+          role={role}
+          onSelectBooking={handleSelectBooking}
         />
       );
   }

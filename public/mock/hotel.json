@@ -1,0 +1,52 @@
+{
+  "success": true,
+  "data": {
+    "profile": {
+      "name": "NextStay Hotel",
+      "brand": "Provah Grand",
+      "manager": "Salma Akter",
+      "role": "General Manager",
+      "dateLabel": "Saturday, 12 September",
+      "greetingName": "Salma",
+      "address": "Gulshan 2, Dhaka 1212",
+      "phone": "+880 2-9881100",
+      "email": "gm@nextstay.hotel",
+      "timezone": "Asia/Dhaka",
+      "currency": "BDT",
+      "taxRate": "15%",
+      "checkInTime": "14:00",
+      "checkOutTime": "12:00"
+    },
+    "stats": {
+      "occupancyPct": 82,
+      "totalRevenue": 1460000,
+      "activeBookings": 42,
+      "availableRooms": 6,
+      "totalRooms": 70,
+      "arrivalsToday": 9,
+      "departuresToday": 6,
+      "pendingCheckIns": 4,
+      "hotelsPendingApproval": 3
+    },
+    "revenue": [
+      { "label": "Mon", "value": 420 },
+      { "label": "Tue", "value": 510 },
+      { "label": "Wed", "value": 380 },
+      { "label": "Thu", "value": 610 },
+      { "label": "Fri", "value": 740 },
+      { "label": "Sat", "value": 880 },
+      { "label": "Sun", "value": 690 }
+    ],
+    "channelBreakdown": [
+      { "label": "Direct", "value": 38 },
+      { "label": "OTA", "value": 31 },
+      { "label": "Corporate", "value": 18 },
+      { "label": "Walk-in", "value": 13 }
+    ],
+    "pendingHotels": [
+      { "id": "H-301", "name": "Cox's Bazar Seaview Resort", "location": "Cox's Bazar, Chattogram", "submittedAt": "2026-09-10", "rooms": 48 },
+      { "id": "H-302", "name": "Sreemangal Tea Garden Lodge", "location": "Sreemangal, Sylhet", "submittedAt": "2026-09-08", "rooms": 22 },
+      { "id": "H-303", "name": "Rangamati Hill Retreat", "location": "Rangamati, Chattogram", "submittedAt": "2026-09-05", "rooms": 30 }
+    ]
+  }
+}

@@ -4,38 +4,81 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 
 import { getApiErrorMessage } from "@/lib/apiErrorMessage";
 import { useUserLoginMutation } from "@/store/api/authApi/authApi";
+import { useSessionStore } from "@/store/sessionStore";
+import type { HotelRole } from "@/types/types";
+
+const loginSchema = z.object({
+  email: z.string().trim().email("Enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginForm = z.infer<typeof loginSchema>;
+
+// Map the account role returned by the API to a hotel-dashboard role.
+// TODO(auth): once the backend exposes hotel roles (MANAGER/FRONT_DESK/…), read
+// them from the profile response instead of defaulting to ADMIN here.
+function toHotelRole(apiRole: string): HotelRole {
+  switch (apiRole) {
+    case "Admin":
+      return "ADMIN";
+    case "Seller":
+      return "OWNER";
+    default:
+      return "ADMIN";
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter();
+  const signIn = useSessionStore((s) => s.signIn);
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [login, { isLoading }] = useUserLoginMutation();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!email || !password) {
-      toast.error("Please enter both email and password");
-      return;
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  });
+
+  const onSubmit = async (values: LoginForm) => {
     try {
-      const res = await login({ email, password }).unwrap();
+      const res = await login({ email: values.email, password: values.password }).unwrap();
+      const user = res.data.user;
       if (res.data.accessToken) {
         localStorage.setItem("accessToken", res.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("user", JSON.stringify(user));
       }
-      toast.success(`Welcome back, ${res.data.user.name}`);
+      signIn({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: toHotelRole(user.role),
+        hotelId: "H-001",
+        hotelName: "Provah Grand",
+      });
+      toast.success(`Welcome back, ${user.name}`);
       router.push("/dashboard");
     } catch (err) {
       toast.error(getApiErrorMessage(err));
     }
   };
+
+  const inputClass = (hasError: boolean) =>
+    `w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent disabled:opacity-60 ${
+      hasError ? "border-red-400/80" : "border-white/20"
+    }`;
 
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
@@ -61,7 +104,7 @@ export default function LoginPage() {
             Sign in to manage your bookings and saved stays
           </p>
 
-          <form className="mt-8 flex flex-col gap-4" onSubmit={onSubmit}>
+          <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)} noValidate>
             <div>
               <label className="block text-xs font-medium text-cream/70 mb-1.5">
                 Email address
@@ -73,13 +116,18 @@ export default function LoginPage() {
                 />
                 <input
                   type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  aria-invalid={!!errors.email}
                   placeholder="example@gmail.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent disabled:opacity-60"
+                  className={inputClass(!!errors.email)}
+                  {...register("email")}
                 />
               </div>
+              {errors.email ? (
+                <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-300">
+                  <AlertCircle size={12} />
+                  {errors.email.message}
+                </p>
+              ) : null}
             </div>
 
             <div>
@@ -101,11 +149,10 @@ export default function LoginPage() {
                 />
                 <input
                   type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  aria-invalid={!!errors.password}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-11 py-3 rounded-xl bg-white/10 border border-white/20 text-sm text-cream placeholder:text-cream/40 transition-[border-color,box-shadow] duration-300 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent disabled:opacity-60"
+                  className={inputClass(!!errors.password)}
+                  {...register("password")}
                 />
                 <button
                   type="button"
@@ -116,6 +163,12 @@ export default function LoginPage() {
                   {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                 </button>
               </div>
+              {errors.password ? (
+                <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-red-300">
+                  <AlertCircle size={12} />
+                  {errors.password.message}
+                </p>
+              ) : null}
             </div>
 
             <label className="flex items-center gap-2 text-xs text-cream/70 mt-1">

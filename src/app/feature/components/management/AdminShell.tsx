@@ -1,40 +1,40 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
-import { HotelMockDataProvider } from "@/hooks/useHotelMockData";
+import type { ReactNode } from "react";
+import { useUiStore } from "@/store/uiStore";
 import Sidebar from "./Sidebar";
 import Topbar from "./DashboarNavbar";
 
 export default function AdminShell({ children }: { children: ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarOpen = useUiStore((s) => s.sidebarOpen);
+  const closeSidebar = useUiStore((s) => s.closeSidebar);
+  const toggleSidebar = useUiStore((s) => s.toggleSidebar);
 
   return (
-    <HotelMockDataProvider>
-      <div className="admin-shell flex min-h-screen w-full bg-slate-50 text-slate-900">
-        {sidebarOpen ? (
-          <button
-            type="button"
-            aria-label="Close navigation"
-            className="fixed inset-0 z-40 bg-slate-900/40 lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        ) : null}
-
-        <Sidebar
-          open={sidebarOpen}
-          onNavigate={() => setSidebarOpen(false)}
+    <div className="admin-shell flex min-h-screen w-full bg-cream text-ink">
+      {sidebarOpen ? (
+        <button
+          type="button"
+          aria-label="Close navigation"
+          className="fixed inset-0 z-40 bg-forest-deep/50 lg:hidden"
+          onClick={closeSidebar}
         />
+      ) : null}
 
-        <div className="flex min-w-0 flex-1 flex-col">
-          <Topbar
-            notificationCount={3}
-            onMenuClick={() => setSidebarOpen((v) => !v)}
-          />
-          <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-7 lg:py-6">
-            {children}
-          </div>
+      <Sidebar
+        open={sidebarOpen}
+        onNavigate={closeSidebar}
+      />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <Topbar
+          notificationCount={3}
+          onMenuClick={toggleSidebar}
+        />
+        <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-7 lg:py-6">
+          {children}
         </div>
       </div>
-    </HotelMockDataProvider>
+    </div>
   );
 }

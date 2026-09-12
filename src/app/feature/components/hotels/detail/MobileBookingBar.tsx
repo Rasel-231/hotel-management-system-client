@@ -27,7 +27,8 @@ export default function MobileBookingBar({ property }: { property: Property }) {
               {checkIn ? "Selected dates" : "From"}
             </p>
             <p className="truncate text-base font-bold text-forest">
-              ${property.price}
+              {property.currency === "USD" ? "$" : property.currency}{" "}
+              {property.price}
               <span className="text-xs font-normal text-caption"> /night</span>
             </p>
           </div>
