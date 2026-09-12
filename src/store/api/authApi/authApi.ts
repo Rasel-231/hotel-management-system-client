@@ -1,7 +1,7 @@
 import { tagtypes } from "@/store/redux/types";
 import { baseApi } from "../baseApi/baseApi";
 
-import { LoginData, LoginResponse } from "@/store/Types/types";
+import { LoginData, LoginResponse, RegistrationData } from "@/store/Types/types";
 
 const AUTH_URL = "/auth";
 
@@ -12,6 +12,15 @@ export const authApi = baseApi.injectEndpoints({
                 url: `${AUTH_URL}/login`,
                 method: "POST",
                 data: loginData,
+            }),
+            invalidatesTags: [tagtypes.user],
+        }),
+
+        userRegister: build.mutation<LoginResponse, RegistrationData>({
+            query: (registrationData) => ({
+                url: `${AUTH_URL}/register`,
+                method: "POST",
+                data: registrationData,
             }),
             invalidatesTags: [tagtypes.user],
         }),
@@ -27,5 +36,5 @@ export const authApi = baseApi.injectEndpoints({
     overrideExisting: false,
 });
 
-export const { useUserLoginMutation, useUserLogoutMutation } =
+export const { useUserLoginMutation, useUserRegisterMutation, useUserLogoutMutation } =
     authApi;

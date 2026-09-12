@@ -40,10 +40,13 @@ export default function BookingWidget({ property }: { property: Property }) {
     to: checkOut ?? undefined,
   };
 
-  const nights =
+  const symbol = property.currency === "USD" ? "$" : property.currency;
+
+  const nightsRaw =
     checkIn && checkOut
-      ? Math.max(1, differenceInCalendarDays(checkOut, checkIn))
+      ? differenceInCalendarDays(checkOut, checkIn)
       : 0;
+  const nights = Math.max(0, nightsRaw);
 
   const promoValid = VALID_PROMOS.includes(promoCode.trim().toUpperCase());
   const subtotal = nights ? property.price * nights * rooms : 0;
@@ -56,6 +59,10 @@ export default function BookingWidget({ property }: { property: Property }) {
       toast.error("Select your check-in and check-out dates first");
       return;
     }
+    if (nightsRaw < 1) {
+      toast.error("Check-out must be after check-in");
+      return;
+    }
     if (propertyId !== property.id) selectProperty(property.id);
     router.push(`/guest-form/${property.id}`);
   };
@@ -65,8 +72,7 @@ export default function BookingWidget({ property }: { property: Property }) {
       <div className="flex items-baseline justify-between">
         <p>
           <span className="text-2xl font-bold text-forest">
-            {property.currency === "USD" ? "$" : property.currency}{" "}
-            {property.price}
+            {symbol} {property.price}
           </span>
           <span className="text-sm text-caption"> /night</span>
         </p>
@@ -117,17 +123,25 @@ export default function BookingWidget({ property }: { property: Property }) {
       {nights > 0 && (
         <div className="mt-6 space-y-2.5 border-t border-line pt-5 text-sm">
           <Row
-            label={`${property.price} × ${nights} night${nights > 1 ? "s" : ""} × ${rooms}`}
+            label={`${symbol}${property.price} × ${nights} night${nights > 1 ? "s" : ""} × ${rooms}`}
             value={subtotal}
+            symbol={symbol}
           />
           {promoValid && (
-            <Row label="Promo discount (10%)" value={-discount} accent />
+            <Row
+              label="Promo discount (10%)"
+              value={discount}
+              symbol={symbol}
+              subtract
+              accent
+            />
           )}
-          <Row label="Taxes & fees (12%)" value={taxes} />
+          <Row label="Taxes & fees (12%)" value={taxes} symbol={symbol} />
           <div className="flex items-center justify-between border-t border-line pt-3 text-base font-bold text-forest">
             <span>Total</span>
             <span>
-              {property.currency === "USD" ? "$" : property.currency} {total}
+              {symbol}
+              {total.toLocaleString()}
             </span>
           </div>
         </div>
@@ -162,17 +176,23 @@ export default function BookingWidget({ property }: { property: Property }) {
 function Row({
   label,
   value,
+  symbol,
+  subtract = false,
   accent = false,
 }: {
   label: string | number;
   value: number;
+  symbol: string;
+  subtract?: boolean;
   accent?: boolean;
 }) {
   return (
     <div className="flex items-center justify-between text-ink-soft">
       <span>{label}</span>
       <span className={accent ? "font-semibold text-olive" : ""}>
-        {value >= 0 ? "+" : "-"}${Math.abs(value).toLocaleString()}
+        {subtract ? "−" : ""}
+        {symbol}
+        {value.toLocaleString()}
       </span>
     </div>
   );

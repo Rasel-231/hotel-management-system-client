@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "data": [
+    { "id": "R-101", "number": "101", "type": "Standard", "floor": "1st floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "available", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-102", "number": "102", "type": "Standard", "floor": "1st floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "available", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-103", "number": "103", "type": "Standard", "floor": "1st floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "available", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-105", "number": "105", "type": "Standard", "floor": "1st floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "reserved", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-118", "number": "118", "type": "Garden View", "floor": "1st floor", "baseRate": 9600, "capacity": 3, "bedConfig": "1 King", "status": "maintenance", "amenities": ["Wi-Fi", "AC", "Balcony"] },
+    { "id": "R-120", "number": "120", "type": "Garden View", "floor": "1st floor", "baseRate": 9600, "capacity": 3, "bedConfig": "1 King", "status": "available", "amenities": ["Wi-Fi", "AC", "Balcony"] },
+    { "id": "R-121", "number": "121", "type": "Garden View", "floor": "1st floor", "baseRate": 9600, "capacity": 3, "bedConfig": "1 King", "status": "reserved", "amenities": ["Wi-Fi", "AC", "Balcony"] },
+    { "id": "R-200", "number": "200", "type": "Standard", "floor": "2nd floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "available", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-210", "number": "210", "type": "Standard", "floor": "2nd floor", "baseRate": 4500, "capacity": 2, "bedConfig": "2 Twin", "status": "occupied", "amenities": ["Wi-Fi", "AC"] },
+    { "id": "R-211", "number": "211", "type": "Deluxe Twin", "floor": "2nd floor", "baseRate": 7200, "capacity": 2, "bedConfig": "2 Twin", "status": "reserved", "amenities": ["Wi-Fi", "AC", "Mini-bar"] },
+    { "id": "R-305", "number": "305", "type": "Deluxe King", "floor": "3rd floor", "baseRate": 8400, "capacity": 2, "bedConfig": "1 King", "status": "reserved", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub"] },
+    { "id": "R-306", "number": "306", "type": "Deluxe King", "floor": "3rd floor", "baseRate": 8400, "capacity": 2, "bedConfig": "1 King", "status": "available", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub"] },
+    { "id": "R-307", "number": "307", "type": "Deluxe King", "floor": "3rd floor", "baseRate": 8400, "capacity": 2, "bedConfig": "1 King", "status": "reserved", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub"] },
+    { "id": "R-402", "number": "402", "type": "Deluxe Twin", "floor": "4th floor", "baseRate": 7200, "capacity": 2, "bedConfig": "2 Twin", "status": "occupied", "amenities": ["Wi-Fi", "AC", "Mini-bar"] },
+    { "id": "R-403", "number": "403", "type": "Deluxe Twin", "floor": "4th floor", "baseRate": 7200, "capacity": 2, "bedConfig": "2 Twin", "status": "available", "amenities": ["Wi-Fi", "AC", "Mini-bar"] },
+    { "id": "R-701", "number": "701", "type": "Executive Suite", "floor": "7th floor", "baseRate": 15800, "capacity": 4, "bedConfig": "1 King + Sofa", "status": "occupied", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub", "Living area", "Valet"] },
+    { "id": "R-702", "number": "702", "type": "Executive Suite", "floor": "7th floor", "baseRate": 15800, "capacity": 4, "bedConfig": "1 King + Sofa", "status": "occupied", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub", "Living area", "Valet"] },
+    { "id": "R-703", "number": "703", "type": "Executive Suite", "floor": "7th floor", "baseRate": 15800, "capacity": 4, "bedConfig": "1 King + Sofa", "status": "reserved", "amenities": ["Wi-Fi", "AC", "Mini-bar", "Bathtub", "Living area", "Valet"] }
+  ],
+  "meta": { "page": 1, "limit": 50, "total": 18 }
+}

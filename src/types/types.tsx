@@ -200,21 +200,150 @@ export type Commitment = {
 // every section component takes typed props, so wiring is a drop-in swap.
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Booking domain types (used by the admin dashboard + booking flow).
+// NOTE: these mirror the server's Prisma Booking/Room/Hotel models closely so
+// the mock JSON in /public/mock can be swapped for real API responses without
+// reshaping the component tree. Field names/types should be kept in lockstep
+// with the Prisma schema on migration.
+// ---------------------------------------------------------------------------
+
 export type BookingStatus =
+  | "pending"
   | "confirmed"
   | "checked-in"
   | "checked-out"
-  | "pending"
-  | "cancelled";
+  | "cancelled"
+  | "no-show"
+  | "completed";
+
+export type BookingChannel =
+  | "direct"
+  | "ota"
+  | "corporate"
+  | "walk-in";
+
+export interface BookingGuest {
+  name: string;
+  email: string;
+  phone?: string;
+  nationality?: string;
+}
+
+export interface BookingRoomRef {
+  number: string;
+  type: string;
+  floor?: string;
+  rateName: string;
+}
 
 export interface Booking {
   id: string;
-  guest: string;
-  room: string;
-  checkIn: string;
-  checkOut: string;
+  guest: BookingGuest;
+  room: BookingRoomRef;
+  checkIn: string; // ISO date yyyy-mm-dd
+  checkOut: string; // ISO date yyyy-mm-dd (exclusive)
   status: BookingStatus;
-  amount: string;
+  amount: number; // numeric, minor-currency-agnostic (BDT taka)
+  currency: string;
+  channel: BookingChannel;
+  adults: number;
+  children: number;
+  nights: number;
+  createdAt: string; // ISO datetime
+  source?: string; // e.g. "booking.com", "hotel website"
+  note?: string;
+  hotelId?: string;
+  /** Government ID + purpose captured at reservation time (Bangladesh hotels). */
+  registration?: {
+    idType: string;
+    idNumber: string;
+    address: string;
+    purposeOfVisit: string;
+  };
+}
+
+// Hotel staff / platform roles. SUPER_ADMIN and ADMIN/OWNER operate at
+// platform / hotel level, MANAGER / FRONT_DESK / HOUSEKEEPING are in-hotel
+// sub-roles. Keep in sync with the server's role enum once real auth lands.
+export type HotelRole =
+  | "SUPER_ADMIN"
+  | "ADMIN"
+  | "OWNER"
+  | "MANAGER"
+  | "FRONT_DESK"
+  | "HOUSEKEEPING";
+
+export interface SessionUser {
+  id: string;
+  name: string;
+  email: string;
+  role: HotelRole;
+  hotelId?: string;
+  hotelName?: string;
+  avatarUrl?: string | null;
+}
+
+export type RoomStatus =
+  | "available"
+  | "occupied"
+  | "reserved"
+  | "maintenance";
+
+export interface Room {
+  id: string;
+  number: string;
+  type: string;
+  floor: string;
+  baseRate: number; // BDT per night
+  capacity: number;
+  bedConfig: string;
+  status: RoomStatus;
+  amenities: string[];
+}
+
+// Backward-compatible aliases: the availability grid now operates directly on
+// the shared `Room` model.
+export type RoomAvailabilityStatus = RoomStatus;
+export type RoomAvailabilityItem = Room;
+
+export interface DashboardStats {
+  occupancyPct: number;
+  totalRevenue: number; // MTD
+  activeBookings: number;
+  availableRooms: number;
+  totalRooms: number;
+  arrivalsToday: number;
+  departuresToday: number;
+  pendingCheckIns: number;
+  hotelsPendingApproval: number; // SUPER_ADMIN only
+}
+
+export interface HotelApproval {
+  id: string;
+  name: string;
+  location: string;
+  submittedAt: string;
+  rooms: number;
+}
+
+export interface HotelMockPayload {
+  hotel: HotelProfile;
+  stats: HotelStats;
+  kpis: KpiItem[];
+  revenue: RevenuePoint[];
+  channelBreakdown: ChannelShare[];
+  recentGuests: RecentGuest[];
+  bookings: Booking[];
+  rooms: RoomType[];
+  serviceRequests: ServiceRequest[];
+  roomAvailability: RoomAvailabilityItem[];
+  staff: StaffMember[];
+  staffTasks: StaffTask[];
+  chatThreads: ChatThread[];
+  chatMessages: Record<string, ChatMessage[]>;
+  guestMessages: GuestMessage[];
+  websiteSections: WebsiteSection[];
 }
 
 export interface RoomType {
@@ -273,20 +402,6 @@ export interface GuestMessage {
 export interface WebsiteSection {
   label: string;
   live: boolean;
-}
-
-export type RoomAvailabilityStatus =
-  | "available"
-  | "occupied"
-  | "maintenance"
-  | "reserved";
-
-export interface RoomAvailabilityItem {
-  number: string;
-  type: string;
-  floor: string;
-  status: RoomAvailabilityStatus;
-  price: string;
 }
 
 export interface HotelProfile {
@@ -351,23 +466,4 @@ export interface StaffTask {
 export interface ChannelShare {
   label: string;
   value: number;
-}
-
-export interface HotelMockPayload {
-  hotel: HotelProfile;
-  stats: HotelStats;
-  kpis: KpiItem[];
-  revenue: RevenuePoint[];
-  channelBreakdown: ChannelShare[];
-  recentGuests: RecentGuest[];
-  bookings: Booking[];
-  rooms: RoomType[];
-  serviceRequests: ServiceRequest[];
-  roomAvailability: RoomAvailabilityItem[];
-  staff: StaffMember[];
-  staffTasks: StaffTask[];
-  chatThreads: ChatThread[];
-  chatMessages: Record<string, ChatMessage[]>;
-  guestMessages: GuestMessage[];
-  websiteSections: WebsiteSection[];
 }

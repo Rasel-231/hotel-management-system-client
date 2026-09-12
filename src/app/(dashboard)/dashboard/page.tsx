@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import AdminDashboardPage from "./DashboardPages";
 
 const DashboardPage = () => {
   return (
-    <div>
+    <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-sand" />}>
       <AdminDashboardPage />
-    </div>
+    </Suspense>
   );
 };
 
